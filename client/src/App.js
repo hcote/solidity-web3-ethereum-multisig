@@ -73,10 +73,7 @@ class App extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const {contract, accounts, addr1, addr2} = this.state;
-    await contract.methods.InitNewWallet(addr1, addr2).send({from: accounts[0]});
-    
-    this.state.loading = true;
-    
+    await contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]});
   }
 
 
