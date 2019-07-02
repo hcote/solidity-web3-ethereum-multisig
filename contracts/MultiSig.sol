@@ -11,6 +11,10 @@ contract MultiSig {
     uint public owner1RequestedWithdrawAtBlock;
     uint public owner2RequestedWithdrawAtBlock;
     uint public balance;
+
+    function getOwner1() public view returns (address) {
+        return owner1;
+    }
     
     modifier owner() {
         require(msg.sender == owner1 || msg.sender == owner2);
@@ -51,8 +55,6 @@ contract MultiSig {
             owner2RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
             _to.transfer(_amount);
         }
-        
-
     }
     
 }

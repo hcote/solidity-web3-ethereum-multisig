@@ -9,7 +9,7 @@ contract InitNewWallet {
         newWalletAddress = address(new MultiSig(_owner1, _owner2));
     }
 
-    function get() public returns (address) {
+    function get() public view returns (address) {
         return newWalletAddress;
     }
 
