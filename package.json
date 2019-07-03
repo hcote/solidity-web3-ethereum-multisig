@@ -1,0 +1,25 @@
+{
+  "name": "truffle-react",
+  "version": "1.0.0",
+  "description": "- React - Truffle - Solidity - Web3.js",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hcote/smart-contract-multi-sig-wallet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hcote/smart-contract-multi-sig-wallet/issues"
+  },
+  "homepage": "https://github.com/hcote/smart-contract-multi-sig-wallet#readme",
+  "dependencies": {
+    "truffle-hdwallet-provider": "^1.0.13"
+  }
+}

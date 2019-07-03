@@ -2,23 +2,6 @@ import React, { Component } from "react";
 import InitNewWallet from "./contracts/InitNewWallet.json";
 import MultiSig from "./contracts/MultiSig.json";
 import getWeb3 from "./utils/getWeb3";
-
-
-/*
-get balance
-withdraw(address, amount)
-
-owner1 address
-owner1 Requested withdraw: bool
-owner1 Requested withdraw at block
-owner1 Requested withdraw to
-
-owner2 address
-owner2 Requested withdraw: bool
-owner2 Requested withdraw at block
-owner2 Requested withdraw to
-*/
-
 import "./App.css";
 
 class App extends Component {
@@ -41,7 +24,9 @@ class App extends Component {
     owner2RequestedWithdraw: null,
     owner2RequestedWithdrawAtBlock: null,
     owner2RequestedWithdrawTo: null,
-    loading: false
+    loading: false,
+    inputAmount: "",
+    inputTo: ""
   };
 
   componentDidMount = async () => {
@@ -53,14 +38,15 @@ class App extends Component {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.exAddr = this.exAddr.bind(this);
       this.getDataFromExContract = this.getDataFromExContract.bind(this);
-      this.withdrawData = this.withdrawData.bind(this);
+      this.inputAmountData = this.inputAmountData.bind(this);
+      this.inputToData = this.inputToData.bind(this);
+      this.submitWithdraw = this.submitWithdraw.bind(this);
 
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
-      console.log(accounts[0]);
       
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
@@ -69,9 +55,6 @@ class App extends Component {
         InitNewWallet.abi,
         deployedNetwork && deployedNetwork.address,
       );
-
-      console.log(MultiSig.abi);
-      
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({ web3, accounts, contract: instance });
@@ -96,29 +79,43 @@ class App extends Component {
     this.setState({exAddr: e.target.value})
   }
 
-  withdrawData(e) {
-    this.setState({dataWithdrawn: e.target.value})
+  inputAmountData(e) {
+    this.setState({inputAmount: e.target.value})
+  }
+
+  inputToData(e) {
+    this.setState({inputTo: e.target.value})
   }
 
   getDataFromExContract = async () => {
     const { existingContract, accounts, web3 } = this.state;
     let existingWalletBal;
-    let owner1, owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo;
-    let owner2, owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo;
-    await existingContract.methods.balance.call({from: accounts[0]}).then(res=> existingWalletBal = web3.utils.fromWei(res.toString(), 'ether'));
-    await existingContract.methods.owner1.call({from: accounts[0]}).then(res=> owner1 = res);
-    await existingContract.methods.owner1RequestedWithdraw.call({from: accounts[0]}).then(res=> owner1RequestedWithdraw = res);
-    await existingContract.methods.owner1RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawAtBlock = res.toNumber());
-    await existingContract.methods.owner1RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawTo = res);
-    await existingContract.methods.owner2.call({from: accounts[0]}).then(res=> owner2 = res);
-    await existingContract.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res);
-    await existingContract.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
-    await existingContract.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);    
-    this.setState({existingWalletBal: existingWalletBal, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo})
+    console.log(await existingContract.methods.balance.call());
+    
+    await existingContract.methods.balance.call().then(console.log);
+    // let owner1, owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo;
+    // let owner2, owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo;
+    // await existingContract.methods.balance.call({from: accounts[0]}).then(res=> existingWalletBal = web3.utils.fromWei(res.toString(), 'ether'));
+    // await existingContract.methods.owner1.call({from: accounts[0]}).then(res=> owner1 = res);
+    // await existingContract.methods.owner1RequestedWithdraw.call({from: accounts[0]}).then(res=> owner1RequestedWithdraw = res.toString());
+    // await existingContract.methods.owner1RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawAtBlock = res.toNumber());
+    // await existingContract.methods.owner1RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawTo = res);
+    // await existingContract.methods.owner2.call({from: accounts[0]}).then(res=> owner2 = res);
+    // await existingContract.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
+    // await existingContract.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
+    // await existingContract.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
+    // this.setState({existingWalletBal: existingWalletBal, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo})
+  
+  }
+
+  submitWithdraw = async (e) => {
+    e.preventDefault();
+    const {existingContract, accounts, inputAmount, inputTo } = this.state;
+    await existingContract.methods.withdraw(inputAmount, inputTo).send({from: accounts[0]});
+    console.log(inputAmount, inputTo, {from: accounts[0]});
   }
 
   reveal = async () => {
-    console.log('reavealing...');
     const { contract } = this.state;
     const newWalAd = await contract.methods.get().call();
     this.setState({newWalAd: newWalAd});
@@ -127,23 +124,15 @@ class App extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const {contract, accounts, addr1, addr2} = this.state;
-    console.log(contract);
     await contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]});
-    this.setState({addr1: "", addr2: ""})
+    this.setState({addr1: null, addr2: null})
   }
 
   getExInstance = async (e) => {
     e.preventDefault();
-    console.log('retrieving...');
-
-    // not getting here
     const { web3, exAddr,  } = this.state;
-    // Get the contract instance.
-    
     const instance = await new web3.eth.Contract(MultiSig.abi, exAddr);
-
     this.setState({existingContract: instance, exAddr: ""})
-    
   }
 
   // runExample = async () => {
@@ -198,7 +187,7 @@ class App extends Component {
           <input type="submit" value="Get Instance" />
         </form>
         <input type="submit" value="Get Wallet Details" onClick={this.getDataFromExContract}></input>
-        <div>Balance: {this.state.existingWalletBal}</div>
+        <div>Balance: {this.state.existingWalletBal} ether</div>
         <div>Owner 1: {this.state.owner1}</div>
         <div>Requested Withdraw (T/F): {this.state.owner1RequestedWithdraw}</div>
         <div>At block: {this.state.owner1RequestedWithdrawAtBlock}</div>
@@ -207,11 +196,15 @@ class App extends Component {
         <div>Requested Withdraw (T/F): {this.state.owner2RequestedWithdraw}</div>
         <div>At block: {this.state.owner2RequestedWithdrawAtBlock}</div>
         <div>To: {this.state.owner2RequestedWithdrawTo}</div>
-        <form>
-          <input type="text" value={this.state.dataWithdrawn} onChange={this.withdrawData.bind(this)}/>
+        <form onSubmit={this.submitWithdraw}>
+          <input type="text" placeholder="Amount..." value={this.state.inputAmount} onChange={this.inputAmountData.bind(this)}/>
+          <input type="text"  placeholder="To..." value={this.state.inputTo} onChange={this.inputToData.bind(this)}/>
           <input type="submit" value="Request Withdraw" />
         </form>
-        
+        <br />
+        <br />
+        <br />
+        <br />
         </div>
       </div>
     );

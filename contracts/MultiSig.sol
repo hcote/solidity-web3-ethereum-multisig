@@ -12,12 +12,8 @@ contract MultiSig {
     uint public owner2RequestedWithdrawAtBlock;
     uint public balance;
 
-    function getOwner1() public view returns (address) {
-        return owner1;
-    }
-    
     modifier owner() {
-        require(msg.sender == owner1 || msg.sender == owner2);
+        require(msg.sender == owner1 || msg.sender == owner2, "You are not a contract owner...");
         _;
     }
     
@@ -31,7 +27,7 @@ contract MultiSig {
     }
     
     function withdraw(uint _amount, address payable _to) public owner {
-        require(_amount <= balance);
+        require(_amount <= balance, "Requested too much ether...");
 
         if (msg.sender == owner1) {
             owner1RequestedWithdraw = true;
@@ -43,11 +39,7 @@ contract MultiSig {
             owner2RequestedWithdrawTo = _to;
             owner2RequestedWithdrawAtBlock = block.number;
         }
-        if (owner1RequestedWithdraw && owner2RequestedWithdraw && 
-            owner1RequestedWithdrawTo == owner2RequestedWithdrawTo && 
-            owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6171 || 
-            owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6171) {
-                
+        if (owner1RequestedWithdraw && owner2RequestedWithdraw && owner1RequestedWithdrawTo == owner2RequestedWithdrawTo && owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6171 || owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6171) {
             balance -= _amount;
             owner1RequestedWithdraw = false;
             owner1RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
