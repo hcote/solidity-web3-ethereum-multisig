@@ -19,3 +19,5 @@ module.exports = {
     },
   }
 };
+
+// 0x7f59e92A3FB0945e17366921DEE8677F736D3B41 - multisig created on ropsten

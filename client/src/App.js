@@ -89,7 +89,8 @@ class App extends Component {
   }
 
   getDataFromExContract = async () => {
-    const { existingContract, accounts, web3 } = this.state;
+    const { existingContract, web3 } = this.state;
+    const accounts = await web3.eth.getAccounts();
     let existingWalletBal;
     let owner1, owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo;
     let owner2, owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo;
@@ -103,14 +104,13 @@ class App extends Component {
     await existingContract.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
     await existingContract.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
     this.setState({existingWalletBal: existingWalletBal, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo})
-  
   }
 
   submitWithdraw = async (e) => {
     e.preventDefault();
-    const {existingContract, accounts, inputAmount, inputTo } = this.state;
+    const {existingContract, web3, inputAmount, inputTo } = this.state;
+    const accounts = await web3.eth.getAccounts();
     await existingContract.methods.withdraw(inputAmount, inputTo).send({from: accounts[0]});
-    console.log(inputAmount, inputTo, {from: accounts[0]});
   }
 
   reveal = async () => {
@@ -121,7 +121,8 @@ class App extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const {contract, accounts, addr1, addr2} = this.state;
+    const {contract, web3, addr1, addr2} = this.state;
+    const accounts = await web3.eth.getAccounts();
     await contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]});
     this.setState({addr1: null, addr2: null})
   }
