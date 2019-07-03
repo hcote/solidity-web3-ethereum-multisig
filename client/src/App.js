@@ -47,6 +47,7 @@ class App extends Component {
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
+      console.log(accounts);
       
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
@@ -90,21 +91,18 @@ class App extends Component {
   getDataFromExContract = async () => {
     const { existingContract, accounts, web3 } = this.state;
     let existingWalletBal;
-    console.log(await existingContract.methods.balance.call());
-    
-    await existingContract.methods.balance.call().then(console.log);
-    // let owner1, owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo;
-    // let owner2, owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo;
-    // await existingContract.methods.balance.call({from: accounts[0]}).then(res=> existingWalletBal = web3.utils.fromWei(res.toString(), 'ether'));
-    // await existingContract.methods.owner1.call({from: accounts[0]}).then(res=> owner1 = res);
-    // await existingContract.methods.owner1RequestedWithdraw.call({from: accounts[0]}).then(res=> owner1RequestedWithdraw = res.toString());
-    // await existingContract.methods.owner1RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawAtBlock = res.toNumber());
-    // await existingContract.methods.owner1RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawTo = res);
-    // await existingContract.methods.owner2.call({from: accounts[0]}).then(res=> owner2 = res);
-    // await existingContract.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
-    // await existingContract.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
-    // await existingContract.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
-    // this.setState({existingWalletBal: existingWalletBal, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo})
+    let owner1, owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo;
+    let owner2, owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo;
+    await existingContract.methods.balance.call({from: accounts[0]}).then(res=> existingWalletBal = web3.utils.fromWei(res.toString(), 'ether'));
+    await existingContract.methods.owner1.call({from: accounts[0]}).then(res=> owner1 = res);
+    await existingContract.methods.owner1RequestedWithdraw.call({from: accounts[0]}).then(res=> owner1RequestedWithdraw = res.toString());
+    await existingContract.methods.owner1RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawAtBlock = res.toNumber());
+    await existingContract.methods.owner1RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawTo = res);
+    await existingContract.methods.owner2.call({from: accounts[0]}).then(res=> owner2 = res);
+    await existingContract.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
+    await existingContract.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
+    await existingContract.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
+    this.setState({existingWalletBal: existingWalletBal, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo})
   
   }
 

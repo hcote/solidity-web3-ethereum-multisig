@@ -10,7 +10,7 @@ contract MultiSig {
     address public owner2RequestedWithdrawTo;
     uint public owner1RequestedWithdrawAtBlock;
     uint public owner2RequestedWithdrawAtBlock;
-    uint public balance;
+    uint public balance = 0;
 
     modifier owner() {
         require(msg.sender == owner1 || msg.sender == owner2, "You are not a contract owner...");
@@ -27,7 +27,7 @@ contract MultiSig {
     }
     
     function withdraw(uint _amount, address payable _to) public owner {
-        require(_amount <= balance, "Requested too much ether...");
+        require(balance >= _amount, "Requested too much ether...");
 
         if (msg.sender == owner1) {
             owner1RequestedWithdraw = true;
