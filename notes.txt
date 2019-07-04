@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import InitNewWallet from "./contracts/InitNewWallet.json";
-import MultiSig from "./contracts/MultiSig.json";
-import getWeb3 from "./utils/getWeb3";
-import "./App.css";
+import InitNewWallet from "../contracts/InitNewWallet.json";
+import MultiSig from "../contracts/MultiSig.json";
+import getWeb3 from "../utils/getWeb3";
+import "../App.css";
 
 class App extends Component {
   state = { 
@@ -121,7 +121,7 @@ class App extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const {contract, web3, addr1, addr2} = this.state;
+    const {contract, web3, addr1, addr2 } = this.state;
     const accounts = await web3.eth.getAccounts();
     await contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]});
     this.setState({addr1: null, addr2: null})
@@ -157,18 +157,21 @@ class App extends Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Address 1: 
-            <input type="text" name="addr1" value={this.state.addr1} onChange={this.handleChange.bind(this)} />
+            <input type="text" name="addr1" placeholder="Address 1..." value={this.state.addr1} onChange={this.handleChange.bind(this)} />
           </label>
           <br />
           <label>
             Address 2: 
-            <input type="text" name="addr2" value={this.state.addr2} onChange={this.handleChang2.bind(this)} />
+            <input type="text" name="addr2" placeholder="Address 2..." value={this.state.addr2} onChange={this.handleChang2.bind(this)} />
           </label>
           <br />
           <input type="submit" value="Create" />
         </form>
         <br />
-       {/* <div>need to display loading bar here during mining</div> */}
+       {this.state.loading ? 
+          <div>Pending...</div> :
+          <div></div>
+        }
        <button onClick={this.reveal}>Reveal New Wallet Address</button>
         <div>{this.state.newWalAd}</div>
         <br />
@@ -211,3 +214,11 @@ class App extends Component {
 }
 
 export default App;
+
+
+// what happens if:
+/* 
+- the second person requests more than the balance
+- the second person requests withdraw to a different address
+- 
+*/
