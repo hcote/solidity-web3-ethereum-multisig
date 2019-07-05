@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
-
 
 class Nav extends Component {
 
@@ -8,8 +6,9 @@ class Nav extends Component {
     return (
       <nav>
         <ul>
-          <Link to="/new"><li>Create New</li></Link>
-          <Link to="load"><li>Load Existing</li></Link>
+          <a href="/"><li>Home</li></a>
+          <a href="/new"><li>Create New</li></a>
+          <a href="/load-from-address"><li>Load From Address</li></a>
         </ul>
       </nav>
     );

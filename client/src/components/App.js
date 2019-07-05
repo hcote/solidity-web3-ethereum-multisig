@@ -15,7 +15,7 @@ class App extends Component {
         <Switch> 
           <Route path="/" exact component={Home} />
           <Route path="/new" component={CreateNew} />
-          <Route path="/load" component={LoadExisting} />
+          <Route path="/load-from-address" component={LoadExisting} />
         </Switch>
       </div>
       </Router>
