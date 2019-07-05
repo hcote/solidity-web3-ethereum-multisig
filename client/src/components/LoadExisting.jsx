@@ -106,9 +106,8 @@ class App extends Component {
           </label>
           <input type="submit" value="Get Instance" />
         </form>
-
         <input type="submit" value="Get Wallet Details" onClick={this.popDataFromExContract}></input>
-        <div>Balance: {this.state.exWalletBalance} ether</div>
+        {this.exWalletBalance != null ? <div>Balance: {this.state.exWalletBalance} ether</div> : <p></p>}
         <div>Owner 1: {this.state.owner1}</div>
         <div>Requested Withdraw (T/F): {this.state.owner1RequestedWithdraw}</div>
         <div>At block: {this.state.owner1RequestedWithdrawAtBlock}</div>
