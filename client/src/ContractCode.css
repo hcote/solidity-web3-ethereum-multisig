@@ -1,0 +1,14 @@
+pre {
+  background-color: rgb(44, 46, 48);
+  width: 60%;
+  margin: 0 auto;
+  white-space: pre-wrap; 
+  overflow: scroll;
+}
+
+code {
+  width: 60%;
+  margin: 0 auto;
+  font-size: .7em;
+  color: aliceblue;
+}
