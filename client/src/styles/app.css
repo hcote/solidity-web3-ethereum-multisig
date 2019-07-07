@@ -1,3 +1,8 @@
+
+hr {
+  width: 80%;
+}
+
 .App {
   text-align: center;
   width: 50%;
@@ -31,4 +36,32 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  height: 93vh;
+}
+
+.form {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  width: 20em;
+  box-sizing: border-box;
+  font-size: .8em;
+}
+
+.reveal-btn {
+  margin-top: 5em;
+}
+
+.btn {
+  background-color: black;
+  color: #61dafb;
+  font-size: .8em;
+}
+
+.btn:hover {
+  background-color: rgb(0, 204, 255, .9);
+  color: black;
 }

@@ -10,14 +10,34 @@ nav {
   list-style-type: none;
   margin: 0;
   margin-left: 45%;
-  padding: 20px;
+  padding: 15px;
 }
 
 .nav-list-item {
   color: rgb(0, 204, 255);
   font-size: .8em;
+  padding: 10px 20px;
+  border-radius: 7px;
+}
+
+.nav-list-item:hover {
+  background-color: rgb(0, 204, 255, .9);
+  color: black;
 }
 
 a {
   text-decoration: none;
+}
+
+/* .logo {
+  height: 60px;
+  float: left;
+  margin-left: -8px;
+  margin-top: -4px;
+} */
+
+.logo {
+  height: 45px;
+  float: left;
+  padding: 14px;
 }

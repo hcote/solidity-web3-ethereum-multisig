@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import InitNewWallet from "../contracts/InitNewWallet.json";
 import getWeb3 from "../utils/getWeb3";
-import "../App.css";
+import "../styles/app.css";
 
-class App extends Component {
+class CreateNew extends Component {
   state = { 
     storageValue: "", 
     web3: null, 
@@ -13,6 +13,7 @@ class App extends Component {
     addr1: "", 
     addr2: "",
     loading: false,
+    disabled: false,
   };
 
   componentDidMount = async () => {
@@ -64,10 +65,13 @@ class App extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    this.setState({loading: true});
     const {contract, web3, addr1, addr2 } = this.state;
     const accounts = await web3.eth.getAccounts();
     await contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]});
-    this.setState({addr1: null, addr2: null})
+    // not getting here
+    this.setState({addr1: "", addr2: "", loading: false});
+    
   }
 
   render() {
@@ -78,24 +82,18 @@ class App extends Component {
       <div className="App">
         <h3>Create your own multi-sig wallet.</h3>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Address 1: 
-            <input type="text" name="addr1" placeholder="Address 1..." value={this.state.addr1} onChange={this.handleChange.bind(this)} />
-          </label>
-          <br />
-          <label>
-            Address 2: 
-            <input type="text" name="addr2" placeholder="Address 2..." value={this.state.addr2} onChange={this.handleChang2.bind(this)} />
-          </label>
-          <br />
-          <input type="submit" value="Create" />
+            <input className="form" type="text" name="addr1" placeholder="Address 1..." value={this.state.addr1} onChange={this.handleChange.bind(this)} />
+            <br />
+            <input className="form" type="text" name="addr2" placeholder="Address 2..." value={this.state.addr2} onChange={this.handleChang2.bind(this)} />
+            <br />
+          <input className="form btn" type="submit" value="Create" disabled={this.state.disabled} />
         </form>
         <br />
        {this.state.loading ? 
           <div>Pending...</div> :
           <div></div>
         }
-       <button onClick={this.reveal}>Reveal New Wallet Address</button>
+       <button className="form btn reveal-btn" onClick={this.reveal}>Reveal New Wallet Address</button>
         <div>{this.state.newWalAd}</div>
         <br />
         <br />
@@ -104,7 +102,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default CreateNew;
 
 
 // what happens if:

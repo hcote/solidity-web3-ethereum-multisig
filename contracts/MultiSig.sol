@@ -42,9 +42,9 @@ contract MultiSig {
         if (owner1RequestedWithdraw && owner2RequestedWithdraw && owner1RequestedWithdrawTo == owner2RequestedWithdrawTo && owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6171 || owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6171) {
             balance -= _amount;
             owner1RequestedWithdraw = false;
-            owner1RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
+            owner1RequestedWithdrawTo = 0x0;
             owner2RequestedWithdraw = false;
-            owner2RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
+            owner2RequestedWithdrawTo = 0x0;
             _to.transfer(_amount);
         }
     }

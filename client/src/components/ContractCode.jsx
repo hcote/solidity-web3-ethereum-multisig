@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../ContractCode.css"
+import "../styles/contractCode.css"
 
 class ContractCode extends Component {
 
@@ -7,7 +7,7 @@ class ContractCode extends Component {
     return (
       <div>
         <h3>Contract Init New Wallet</h3>
-        <h4>Address (ropsten): 0x37ca6F372A91B794CB2995164F8B19c7372f658e</h4>
+        <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h4>
         <pre>
         <code><p>
         {`
@@ -16,6 +16,7 @@ class ContractCode extends Component {
         import "./MultiSig.sol";
         
         contract InitNewWallet {
+            
             address public newWalletAddress = 0x0000000000000000000000000000000000000000;
         
             function initNewWallet(address _owner1, address _owner2) public {
@@ -32,7 +33,7 @@ class ContractCode extends Component {
         </code>
         </pre>
         <h3>Contract MultiSig</h3>
-        <h4>Address (ropsten): 0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</h4>
+        <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h4>
         <pre>
         <code>
         {`

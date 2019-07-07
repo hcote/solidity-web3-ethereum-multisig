@@ -1,0 +1,13 @@
+.interface {
+  text-align: left;
+}
+
+input:disabled {
+  background-color: gray;
+  color: black;
+}
+
+input:disabled:hover {
+  background-color: gray;
+  color: black;
+}

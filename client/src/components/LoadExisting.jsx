@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MultiSig from "../contracts/MultiSig.json";
 import getWeb3 from "../utils/getWeb3";
-import "../App.css";
+import "../styles/loadExisting.css";
 
 class App extends Component {
   state = { 
@@ -20,7 +20,8 @@ class App extends Component {
     owner2RequestedWithdrawTo: null,
     withdrawAmount: "",
     withdrawTo: "",
-    loading: false
+    loading: false,
+    disabled: true,
   };
 
   componentDidMount = async () => {
@@ -61,9 +62,9 @@ class App extends Component {
 
   getExContractInstance = async (e) => {
     e.preventDefault();
-    const { web3, exContractAddress,  } = this.state;
+    const { web3, exContractAddress } = this.state;
     const instance = await new web3.eth.Contract(MultiSig.abi, exContractAddress);
-    this.setState({exContractInstance: instance, exContractAddress: ""})
+    this.setState({exContractInstance: instance, exContractAddress: "", disabled: false })
   }
 
   popDataFromExContract = async () => {
@@ -100,27 +101,30 @@ class App extends Component {
       <div className="App">
         <h3>Get existing multi-sig wallet</h3>
         <form onSubmit={this.getExContractInstance}>
-          <label>
-            At address: 
-            <input type="text" name="exContractAddress" value={this.state.exContractAddress} onChange={this.exContractAddressInput.bind(this)} />
-          </label>
-          <input type="submit" value="Get Instance" />
+          <input placeholder="At Address..." className="form" type="text" name="exContractAddress" value={this.state.exContractAddress} onChange={this.exContractAddressInput.bind(this)} />
+          <br/>
+          <input className="form btn" type="submit" value="Get Instance" />
         </form>
-        <input type="submit" value="Display Interface" onClick={this.popDataFromExContract}></input>
-        {this.exWalletBalance != null ? <div>Balance: {this.state.exWalletBalance} ether</div> : <p></p>}
-        <div>Owner 1: {this.state.owner1}</div>
-        <div>Requested Withdraw (T/F): {this.state.owner1RequestedWithdraw}</div>
-        <div>At block: {this.state.owner1RequestedWithdrawAtBlock}</div>
-        <div>To: {this.state.owner1RequestedWithdrawTo}</div>
-        <div>Owner 2: {this.state.owner2}</div>
-        <div>Requested Withdraw (T/F): {this.state.owner2RequestedWithdraw}</div>
-        <div>At block: {this.state.owner2RequestedWithdrawAtBlock}</div>
-        <div>To: {this.state.owner2RequestedWithdrawTo}</div>
+        {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabled}></input>}
+        {this.state.owner1 ? <div className="interface one">Address: {this.state.owner1}</div> : <span></span>}
+        {this.state.owner1RequestedWithdraw ? <div className="interface one">Requested Withdraw: {this.state.owner1RequestedWithdraw}</div> : <span></span>}
+        {this.state.owner1RequestedWithdrawAtBlock ? <div className="interface one">At block: {this.state.owner1RequestedWithdrawAtBlock}</div> : <span></span>}
+        {this.state.owner1RequestedWithdrawTo ? <div className="interface one">To Adress: {this.state.owner1RequestedWithdrawTo}</div> : <span></span>}
+        {this.state.owner2 ? <div className="interface two">Address: {this.state.owner2}</div> : <span></span>}
+        {this.state.owner2RequestedWithdraw ? <div className="interface two">Requested Withdraw: {this.state.owner2RequestedWithdraw}</div> : <span></span>}
+        {this.state.owner2RequestedWithdrawAtBlock ? <div className="interface two">At block: {this.state.owner2RequestedWithdrawAtBlock}</div> : <span></span>}
+        {this.state.owner2RequestedWithdrawTo ? <div className="interface two">To Adress: {this.state.owner2RequestedWithdrawTo}</div> : <span></span>}
+        {this.state.exWalletBalance ? <div className="interface">Balance (in ether): {this.state.exWalletBalance}</div> : <span></span>}        
+        {/* {this.state.owner2RequestedWithdrawTo ? 
         <form onSubmit={this.submitWithdraw}>
-          <input type="text" placeholder="Amount..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
-          <input type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
-          <input type="submit" value="Request Withdraw" />
+          <input className="form" type="text" placeholder="Amount..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
+          <br/>
+          <input className="form" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
+          <br/>
+          <input className="form btn" type="submit" value="Request Withdraw" />
         </form>
+        : <span></span>
+        } */}
         </div>
     );
   }
