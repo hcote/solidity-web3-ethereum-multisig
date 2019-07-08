@@ -14,6 +14,7 @@ class CreateNew extends Component {
     addr2: "",
     loading: false,
     disabled: false,
+    qrCode: null,
   };
 
   componentDidMount = async () => {
@@ -96,6 +97,7 @@ class CreateNew extends Component {
        <button className="form btn reveal-btn" onClick={this.reveal}>Reveal New Wallet Address</button>
         <div>{this.state.newWalAd}</div>
         <br />
+        {this.state.newWalAd ? <img src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.newWalAd}&choe=UTF-8`} alt=""/> : <span></span>}
         <br />
       </div>
     );

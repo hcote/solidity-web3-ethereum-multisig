@@ -6,3 +6,4 @@ logo/favicon
 loading bar during mining
 display interface only after button is clicked
   interface formatting
+load all wallets given an address

@@ -22,6 +22,7 @@ class App extends Component {
     withdrawTo: "",
     loading: false,
     disabled: true,
+    qrCode: null,
   };
 
   componentDidMount = async () => {
@@ -58,6 +59,13 @@ class App extends Component {
 
   withdrawToInput(e) {
     this.setState({withdrawTo: e.target.value})
+  }
+
+  fillAdr = async (e) => {
+    e.preventDefault();
+    const { web3 } = this.state;
+    const accounts = await web3.eth.getAccounts();
+    this.setState({withdrawTo: accounts[0]})
   }
 
   getExContractInstance = async (e) => {
@@ -153,14 +161,15 @@ class App extends Component {
         </table> 
         : <span></span>}
         {this.state.owner1 ?
-          <form onSubmit={this.submitWithdraw}>
-          <input className="form" type="text" placeholder="Amount..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
+          <form>
+          <input className="w-form" type="text" placeholder="Amount..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
           <br/>
-          <input className="form" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
-          <button>Fill with your address</button>
+          <input className="w-form" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
+          <button className="fillInAddrBtn" onClick={this.fillAdr}>Auto Fill</button>
           <br/>
-          <input className="form btn" type="submit" value="Request Withdraw" />
+          <input className="w-form w-btn" type="submit" value="Request Withdraw" onClick={this.submitWithdraw} />
         </form> : <span></span>}
+        {this.state.owner1 ? <img src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.exContractAddress}&choe=UTF-8`} alt=""/> : <span></span>}
         </div>
     );
   }

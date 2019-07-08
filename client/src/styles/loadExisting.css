@@ -32,3 +32,36 @@ table, th, td {
 .one {
   background-color: #FFF;
 }
+
+.w-form {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  width: 26em;
+  box-sizing: border-box;
+  font-size: .8em;
+}
+
+.w-btn {
+  background-color: black;
+  border: 3px solid black;
+  color: #61dafb;
+  font-size: .8em;
+}
+
+.w-btn:hover {
+  border: 3px solid #61dafb;
+}
+
+.fillInAddrBtn {
+  width: 4em;
+  background-color: black;
+  color: #61dafb;
+  font-size: .8em;
+  border-radius: 8px;
+}
+
+.fillInAddrBtn:hover {
+  background-color: #61dafb;
+  color: black;
+}
