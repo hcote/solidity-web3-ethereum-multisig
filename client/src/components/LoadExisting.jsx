@@ -106,25 +106,61 @@ class App extends Component {
           <input className="form btn" type="submit" value="Get Instance" />
         </form>
         {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabled}></input>}
-        {this.state.owner1 ? <div className="interface one">Address: {this.state.owner1}</div> : <span></span>}
-        {this.state.owner1RequestedWithdraw ? <div className="interface one">Requested Withdraw: {this.state.owner1RequestedWithdraw}</div> : <span></span>}
-        {this.state.owner1RequestedWithdrawAtBlock ? <div className="interface one">At block: {this.state.owner1RequestedWithdrawAtBlock}</div> : <span></span>}
-        {this.state.owner1RequestedWithdrawTo ? <div className="interface one">To Adress: {this.state.owner1RequestedWithdrawTo}</div> : <span></span>}
-        {this.state.owner2 ? <div className="interface two">Address: {this.state.owner2}</div> : <span></span>}
-        {this.state.owner2RequestedWithdraw ? <div className="interface two">Requested Withdraw: {this.state.owner2RequestedWithdraw}</div> : <span></span>}
-        {this.state.owner2RequestedWithdrawAtBlock ? <div className="interface two">At block: {this.state.owner2RequestedWithdrawAtBlock}</div> : <span></span>}
-        {this.state.owner2RequestedWithdrawTo ? <div className="interface two">To Adress: {this.state.owner2RequestedWithdrawTo}</div> : <span></span>}
-        {this.state.exWalletBalance ? <div className="interface">Balance (in ether): {this.state.exWalletBalance}</div> : <span></span>}        
-        {/* {this.state.owner2RequestedWithdrawTo ? 
-        <form onSubmit={this.submitWithdraw}>
+        {this.state.owner1 ?
+        <table>
+          <thead>
+            <th>Owner One</th>
+            <th>Data</th>
+          </thead>
+          <tr className="one">
+            <td className="var">Address</td>
+            <td className="data">{this.state.owner1}</td>
+          </tr>
+          <tr className="">
+            <td className="var">Has open withdraw</td>
+            <td className="data">{this.state.owner1RequestedWithdraw}</td>
+          </tr>
+          <tr className="one">
+            <td className="var">Withdraw requested at block</td>
+            <td className="data">{this.state.owner1RequestedWithdrawAtBlock}</td>
+          </tr>
+          <tr className="">
+            <td className="var">Requested withdraw to</td>
+            <td className="data">{this.state.owner1RequestedWithdrawTo}</td>
+          </tr>
+            <th>Owner Two</th>
+            <th></th>
+          <tr className="one">
+            <td className="var">Owner Two</td>
+            <td className="data">{this.state.owner2}</td>
+          </tr>
+          <tr>
+            <td className="var">Has open withdraw</td>
+            <td className="data">{this.state.owner2RequestedWithdraw}</td>
+          </tr>
+          <tr className="one">
+            <td className="var">Withdraw requested at block</td>
+            <td className="data">{this.state.owner2RequestedWithdrawAtBlock}</td>
+          </tr>
+          <tr>
+            <td className="var">Requested withdraw to</td>
+            <td className="data">{this.state.owner2RequestedWithdrawTo}</td>
+          </tr>
+          <tr className="one">
+            <td className="var">Balance</td>
+            <td className="data">{this.state.exWalletBalance} ether</td>
+          </tr>
+        </table> 
+        : <span></span>}
+        {this.state.owner1 ?
+          <form onSubmit={this.submitWithdraw}>
           <input className="form" type="text" placeholder="Amount..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
           <br/>
           <input className="form" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
+          <button>Fill with your address</button>
           <br/>
           <input className="form btn" type="submit" value="Request Withdraw" />
-        </form>
-        : <span></span>
-        } */}
+        </form> : <span></span>}
         </div>
     );
   }
