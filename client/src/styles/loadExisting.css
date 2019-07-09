@@ -1,5 +1,8 @@
 table {
   margin: 2em auto;
+  border-style: hidden;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
 input:disabled {
@@ -20,26 +23,22 @@ input:disabled:hover {
   text-align: left;
 }
 
-table, th, td {
-  border: 1px solid black;
-}
-
-.var {
-  font-size: 15px;
-  text-align: left;
-}
-
-.one {
-  background-color: #FFF;
-}
-
-.w-form {
+.w-form-1 {
   padding: 10px;
-  margin: 10px;
+  margin: 10px 0 10px 10px;
   border-radius: 8px;
-  width: 26em;
+  width: 500px;
   box-sizing: border-box;
-  font-size: .8em;
+  font-size: .6em;
+}
+
+.w-form-2 {
+  padding: 10px;
+  margin: 10px 0 10px 10px;
+  border-radius: 8px 0 0 8px;
+  width: 410px;
+  box-sizing: border-box;
+  font-size: .6em;
 }
 
 .w-btn {
@@ -54,14 +53,48 @@ table, th, td {
 }
 
 .fillInAddrBtn {
-  width: 4em;
+  height: 42px;
+  text-align: center;
+  margin-top: 10px;
+  /* padding: 0 5px; */
   background-color: black;
   color: #61dafb;
-  font-size: .8em;
-  border-radius: 8px;
+  font-size: .7em;
+  border-radius: 0 8px 8px 0;
+  width: 90px;
 }
 
 .fillInAddrBtn:hover {
   background-color: #61dafb;
   color: black;
+}
+
+.table-left {
+  background-color: black;
+  color: #61dafb;
+  border-radius: 8px 0 0 8px;
+  text-align: left;
+  font-size: 18px;
+  padding: 10px;
+}
+
+.table-right {
+  background-color: black;
+  color: #61dafb;
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+  padding: 0 5px;
+}
+
+th {
+  background-color: black;
+  color: #61dafb;
+  border-radius: 8px;
+  text-align: left;
+  padding: 10px;
+}
+
+.qr-code {
+  margin-top: 50px;
+  margin-bottom: 200px;
 }

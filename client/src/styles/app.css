@@ -2,14 +2,9 @@ body {
   background-color: aliceblue;
 }
 
-
-hr {
-  width: 80%;
-}
-
 .App {
   text-align: center;
-  width: 35%;
+  width: 45%;
   margin: 0 auto;
 }
 
@@ -50,9 +45,9 @@ hr {
   padding: 10px;
   margin: 10px;
   border-radius: 8px;
-  width: 29em;
+  width: 500px;
   box-sizing: border-box;
-  font-size: .8em;
+  font-size: .7em;
 }
 
 .reveal-btn {
