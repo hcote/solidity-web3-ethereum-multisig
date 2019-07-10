@@ -3,13 +3,18 @@ nav {
   top: 0px;
 }
 
+.nav-container {
+  width: 800px;
+  margin-left: auto;
+}
+
 .nav-list {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   list-style-type: none;
   margin: 0;
-  margin-left: 45%;
+  /* margin-left: 45%; */
   padding: 15px;
 }
 

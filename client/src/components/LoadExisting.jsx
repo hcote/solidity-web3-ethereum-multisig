@@ -162,14 +162,13 @@ class App extends Component {
         {this.state.owner1 ?
           <form>
           <h5>Submit Withdraw Request</h5>
-          <input className="w-form-1" type="number" placeholder="Amount..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
+          <input className="w-form-1" type="number" placeholder="Ether..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
           <br/>
           <input className="w-form-2" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
           <input className="fillInAddrBtn" type="submit" value="Auto Fill" onClick={this.fillAdr} />
           <br/>
           <input className="w-form-1 w-btn" type="submit" value="Request Withdraw" onClick={this.submitWithdraw} />
         </form> : <span></span>}
-        {this.state.owner1 ? <img className="qr-code" src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.exContractAddress}&choe=UTF-8`} alt=""/> : <span></span>}
         </div>
     );
   }
