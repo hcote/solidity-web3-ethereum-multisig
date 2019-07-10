@@ -40,26 +40,35 @@ class Home extends Component {
         </div>
 
         <div id="create" class="tabcontent">
-            <h5>To Create a New Wallet</h5>
-            <li className="instructions-item">Enter in the two addresses that will control it and hit "Create".</li>
-            <li className="instructions-item">When the tx is mined, you can get the address it's deployed to by clicking "Reveal new wallet address".</li>
+        <ol>
+            <li className="instructions-item first-item">Enter in the two addresses that will control it and hit "Create".</li>
+            <li className="instructions-item">Once the tx is mined, you can get the address it's deployed to by clicking "Reveal new wallet address".</li>
+          </ol>
         </div>
 
         <div id="load" class="tabcontent">
-          <h5>To Interact With an Existing Wallet</h5>
-          <li className="instructions-item">Enter in your multisig wallet address and hit "Get Instance".</li>
-          <li className="instructions-item">Hit "Load Interface" to show the contract variables statuses.</li>
-        <h6>Now, in order to withdraw funds, both addresses must: </h6>
+        <ol>
+          <li className="instructions-item first-item">Enter in your multisig wallet address and click "Get Instance".</li>
+          <li className="instructions-item">Click "Display Interface" to show the contract variables and values.</li>
+          <li className="instructions-item">To withdraw, submit a request through the withdraw form.</li>
+          </ol>
+        <h5 className="center">In order to withdraw funds, both addresses must: </h5>
+            <ol>
             <li className="instructions-item">Request a withdraw within 6000 blocks (roughly 1 day) of each other.</li>
             <li className="instructions-item">Request the same address to send the funds to.</li>
             <li className="instructions-item">The amount that will be withdrawn will be the minimum that both addresses requested to take out.</li>
-            <li className="instructions-item">For example, if the contract holds 5 ether and address one requests a withdraw of 3 ether, but address two requests a withdraw of 5 ether, only 3 will be sent (assuming the above conditions are met).</li>
+            <ul>
+            <li className="instructions-item">For example, if the contract holds 5 ether and address one withdraws 3 ether, but address two requests to withdraw 5 ether, only 3 will be sent (assuming the above conditions are met).</li>
+            </ul>
+            </ol>
         </div>
 
         <div id="qr" class="tabcontent">
-        <p>It's easy to send money to your multisig wallet.</p>
-        <p>Just enter in the address to generate your unique QR code.</p>
-        <p>From there you can deposit money using a mobile wallet app.</p>
+        <ol>
+        {/* <h5 className="first-item center">It's easy to send money to your multisig wallet.</h5> */}
+        <li className="instructions-item first-item">Just enter in the address to generate your unique QR code.</li>
+        <li className="instructions-item">From there you can deposit money using a mobile wallet app.</li>
+        </ol>
       </div>
         </div>
     )

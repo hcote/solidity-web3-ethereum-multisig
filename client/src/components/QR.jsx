@@ -5,6 +5,7 @@ import "../styles/app.css";
 class QR extends Component {
   state = { 
     address: "",
+    disabled: true,
     qrCode: false,
   };
 
@@ -17,7 +18,11 @@ class QR extends Component {
   };
 
   addressInput = (e) => {
-    this.setState({address: e.target.value});
+    if (e.target.value.length == 42) {
+      this.setState({address: e.target.value, disabled: false});
+    } else {
+      this.setState({address: e.target.value, disabled: true})
+    }
   }
 
   genQRCode = (e) => {
@@ -32,7 +37,7 @@ class QR extends Component {
         <form onSubmit={this.genQRCode}>
           <input placeholder="Address..." className="form" type="text" value={this.state.address} onChange={this.addressInput.bind(this)} />
           <br/>
-          <input className="form btn" type="submit" value="Generate Code" />
+          <input className="form btn" type="submit" value="Generate Code" disabled={this.state.disabled}/>
         </form>
         {this.state.qrCode ? <img className="qr-code" src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.address}&choe=UTF-8`} alt=""/> : <span></span>}
       </div>
