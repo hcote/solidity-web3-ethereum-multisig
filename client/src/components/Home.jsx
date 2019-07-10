@@ -32,7 +32,7 @@ class Home extends Component {
   render() {
     return ( 
       <div className="instructions">
-        <h3 className="home-header">Instructions</h3>
+        <h3 className="home-header">Instructions by Tab</h3>
         <div class="tab">
           <button class="tablinks" value="create" onClick={this.openCity.bind(this)}>Create New</button>
           <button class="tablinks" value="load" onClick={this.openCity.bind(this)}>Load From Address</button>
@@ -49,16 +49,19 @@ class Home extends Component {
           <h5>To Interact With an Existing Wallet</h5>
           <li className="instructions-item">Enter in your multisig wallet address and hit "Get Instance".</li>
           <li className="instructions-item">Hit "Load Interface" to show the contract variables statuses.</li>
-        </div>
-
-        <div id="qr" class="tabcontent">
         <h6>Now, in order to withdraw funds, both addresses must: </h6>
             <li className="instructions-item">Request a withdraw within 6000 blocks (roughly 1 day) of each other.</li>
             <li className="instructions-item">Request the same address to send the funds to.</li>
             <li className="instructions-item">The amount that will be withdrawn will be the minimum that both addresses requested to take out.</li>
             <li className="instructions-item">For example, if the contract holds 5 ether and address one requests a withdraw of 3 ether, but address two requests a withdraw of 5 ether, only 3 will be sent (assuming the above conditions are met).</li>
         </div>
+
+        <div id="qr" class="tabcontent">
+        <p>It's easy to send money to your multisig wallet.</p>
+        <p>Just enter in the address to generate your unique QR code.</p>
+        <p>From there you can deposit money using a mobile wallet app.</p>
       </div>
+        </div>
     )
   }
   
