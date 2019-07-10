@@ -22,6 +22,8 @@ class App extends Component {
     withdrawTo: "",
     loading: false,
     disabled: true,
+    disabledTwo: true,
+    disabledW: true,
     qrCode: null,
   };
 
@@ -50,29 +52,37 @@ class App extends Component {
   };
 
   exContractAddressInput(e) {
-    this.setState({exContractAddress: e.target.value})
+    if (e.target.value.length == 42) {
+      this.setState({exContractAddress: e.target.value, disabled: false});
+    } else {
+      this.setState({exContractAddress: e.target.value, disabled: true})
+    }
   }
 
   withdrawAmountInput(e) {
     this.setState({withdrawAmount: e.target.value})
   }
 
-  withdrawToInput(e) {
-    this.setState({withdrawTo: e.target.value})
+  withdrawToInput(e) {    
+    if (e.target.value.length == 42) {
+      this.setState({withdrawTo: e.target.value, disabledW: false});
+    } else {
+      this.setState({withdrawTo: e.target.value, disabledW: true})
+    }
   }
 
   fillAdr = async (e) => {
     e.preventDefault();
     const { web3 } = this.state;
     const accounts = await web3.eth.getAccounts();
-    this.setState({withdrawTo: accounts[0]})
+    this.setState({withdrawTo: accounts[0], disabledW: false})
   }
 
   getExContractInstance = async (e) => {
     e.preventDefault();
     const { web3, exContractAddress } = this.state;
     const instance = await new web3.eth.Contract(MultiSig.abi, exContractAddress);
-    this.setState({exContractInstance: instance, exContractAddress: "", disabled: false })
+    this.setState({exContractInstance: instance, exContractAddress: "", disabledTwo: false })
   }
 
   popDataFromExContract = async () => {
@@ -112,14 +122,15 @@ class App extends Component {
         <form onSubmit={this.getExContractInstance}>
           <input placeholder="At Address..." className="form" type="text" name="exContractAddress" value={this.state.exContractAddress} onChange={this.exContractAddressInput.bind(this)} />
           <br/>
-          <input className="form btn" type="submit" value="Get Instance" />
+          <input className="form btn" type="submit" value="Get Instance" disabled={this.state.disabled} />
         </form>
-        {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabled}></input>}
+        {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabledTwo}></input>}
         {this.state.owner1 ?
         <table>
           <thead>
             <th colSpan="2">Owner One</th>
           </thead>
+          <tbody>
           <tr className="one">
             <td className="table-left">Address</td>
             <td className="data table-right">{this.state.owner1}</td>
@@ -157,6 +168,7 @@ class App extends Component {
             <td className="table-left">Balance</td>
             <td className="data table-right">{this.state.exWalletBalance} ether</td>
           </tr>
+          </tbody>
         </table> 
         : <span></span>}
         {this.state.owner1 ?
@@ -167,7 +179,7 @@ class App extends Component {
           <input className="w-form-2" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
           <input className="fillInAddrBtn" type="submit" value="Auto Fill" onClick={this.fillAdr} />
           <br/>
-          <input className="w-form-1 w-btn" type="submit" value="Request Withdraw" onClick={this.submitWithdraw} />
+          <input className="w-form-1 w-btn" type="submit" value="Request Withdraw" onClick={this.submitWithdraw} disabled={this.state.disabledW} />
         </form> : <span></span>}
         </div>
     );
