@@ -160,9 +160,9 @@ class App extends Component {
         </table> 
         : <span></span>}
         {this.state.owner1 ?
-          <form>
+          <form className="withdraw-form">
           <h5>Submit Withdraw Request</h5>
-          <input className="w-form-1" type="number" placeholder="Ether..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
+          <input className="w-form-1" type="number" min={0} placeholder="Ether..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
           <br/>
           <input className="w-form-2" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
           <input className="fillInAddrBtn" type="submit" value="Auto Fill" onClick={this.fillAdr} />

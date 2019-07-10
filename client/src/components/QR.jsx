@@ -4,8 +4,7 @@ import "../styles/app.css";
 
 class QR extends Component {
   state = { 
-    address: null,
-    web3: null, 
+    address: "",
     qrCode: false,
   };
 
@@ -28,7 +27,7 @@ class QR extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <h3>Enter Address for QR Code</h3>
         <form onSubmit={this.genQRCode}>
           <input placeholder="Address..." className="form" type="text" value={this.state.address} onChange={this.addressInput.bind(this)} />
