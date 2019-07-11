@@ -13,7 +13,7 @@ class CreateNew extends Component {
     addr1: "", 
     addr2: "",
     loading: false,
-    disabled: false,
+    disabled: true,
     qrCode: null,
   };
 
@@ -51,16 +51,27 @@ class CreateNew extends Component {
   };
 
   handleChange(e) {
-    this.setState({addr1: e.target.value})
+    if (e.target.value.length == 42 && this.state.addr2.length == 42) {
+      this.setState({addr1: e.target.value, disabled: false});
+    } else {
+      this.setState({addr1: e.target.value, disabled: true})
+    }
   }
 
   handleChange2(e) {
-    this.setState({addr2: e.target.value})
+    if (e.target.value.length == 42 && this.state.addr1.length == 42) {
+      this.setState({addr2: e.target.value, disabled: false});
+    } else {
+      this.setState({addr2: e.target.value, disabled: true})
+    }
   }
 
   reveal = async () => {
     const { contract } = this.state;
+    // not working...
     const newWalAd = await contract.methods.get().call();
+    console.log(newWalAd);
+    
     this.setState({newWalAd: newWalAd});
   }
 
@@ -90,10 +101,10 @@ class CreateNew extends Component {
           <input className="form btn" type="submit" value="Create" disabled={this.state.disabled} />
         </form>
         <br />
-       {this.state.loading ? 
+       {/* {this.state.loading ? 
           <div>Pending...</div> :
           <div></div>
-        }
+        } */}
        <button className="form btn reveal-btn" onClick={this.reveal}>Reveal New Wallet Address</button>
         <div>{this.state.newWalAd}</div>
         <br />
