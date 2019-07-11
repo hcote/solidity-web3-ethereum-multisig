@@ -7,13 +7,13 @@ class Home extends Component {
 
   componentDidMount = async () => {
     try {
-      this.openCity = this.openCity.bind(this);
+      this.showInstructions = this.showInstructions.bind(this);
     } catch (error) {
       console.log(error);
     }
   };
 
-  openCity = (e) => {
+  showInstructions = (e) => {
     console.log(e.target);
     
     var i, tabcontent, tablinks;
@@ -34,9 +34,9 @@ class Home extends Component {
       <div className="instructions">
         <h3 className="home-header">Instructions by Tab</h3>
         <div class="tab">
-          <button class="tablinks" value="create" onClick={this.openCity.bind(this)}>Create New</button>
-          <button class="tablinks" value="load" onClick={this.openCity.bind(this)}>Load From Address</button>
-          <button class="tablinks" value="qr" onClick={this.openCity.bind(this)}>QR Code</button>
+          <button class="tablinks" value="create" onClick={this.showInstructions.bind(this)}>Create New</button>
+          <button class="tablinks" value="load" onClick={this.showInstructions.bind(this)}>Load From Address</button>
+          <button class="tablinks" value="qr" onClick={this.showInstructions.bind(this)}>QR Code</button>
         </div>
 
         <div id="create" class="tabcontent">

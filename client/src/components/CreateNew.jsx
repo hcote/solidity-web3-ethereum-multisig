@@ -14,9 +14,11 @@ class CreateNew extends Component {
     addr2: "",
     loading: false,
     disabled: true,
+    disabledReveal: true,
     qrCode: null,
     confirmations: null,
     txHash: null,
+    elapsedTime: 0,
   };
 
   componentDidMount = async () => {
@@ -74,7 +76,6 @@ class CreateNew extends Component {
 
   reveal = async () => {
     const { contract } = this.state;
-    // not working...
     const newWalAd = await contract.methods.get().call();
     this.setState({newWalAd: newWalAd});
   }
@@ -82,12 +83,18 @@ class CreateNew extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const {contract, web3, addr1, addr2 } = this.state;
+
+    // setTimeout(() => {
+    //   this.setState({elapsedTime: this.state.elapsedTime++})
+    // }, 1000);
+
     const accounts = await web3.eth.getAccounts();
-    this.setState({loading: true});
     contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]})
+      .once('transactionHash', (hash) => {
+        this.setState({loading: true, txHash: hash})
+      })
       .on('confirmation', (cn, r) => {
-        console.log(r);
-        this.setState({loading: false, confirmations: cn, txHash: r.transactionHash});
+        this.setState({loading: false, confirmations: cn, disabledReveal: false});
       })
     this.setState({addr1: "", addr2: "", disabled: true});
   }
@@ -114,19 +121,22 @@ class CreateNew extends Component {
           <div>
             <img className="loading-icon" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
             <p>Tx is being mined...</p>
+            {/* {this.state.elapsedTime !== 0 ? <p>s: {this.state.elapsedTime}</p> : <span></span> } */}
           </div> :
           <div></div>
         }
         {this.state.confirmations ?
-              <div>
-                <div>Block confirmations: {this.state.confirmations}</div>
-                <div><a className="etherscan-link" target="_blank" href={`https://ropsten.etherscan.io/tx/${this.state.txHash}`}>Etherscan</a></div>
-                </div>
+                <div className="eth-link-div">Block confirmations: {this.state.confirmations}</div>
            : <span></span>}
-       <button className="form btn reveal-btn" onClick={this.reveal}>Reveal New Wallet Address</button>
-        <div onDoubleClick={this.copyVal.bind(this)} >{this.state.newWalAd}</div>
+
+        {this.state.txHash ?
+         <div className="eth-link-div"><a className="etherscan-link" target="_blank" href={`https://ropsten.etherscan.io/tx/${this.state.txHash}`}>View on Etherscan</a></div>
+          : <span></span>
+        }
+       <input type="submit" value="Reveal New Wallet Address" className="form btn reveal-btn" onClick={this.reveal} disabled={this.state.disabledReveal} />
+        <div onDoubleClick={this.copyVal.bind(this)} className="newAddress">{this.state.newWalAd}</div>
         <br />
-        {this.state.newWalAd ? <img src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.newWalAd}&choe=UTF-8`} alt=""/> : <span></span>}
+        {this.state.newWalAd ? <img className="qrcode" src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.newWalAd}&choe=UTF-8`} alt=""/> : <span></span>}
         <br />
       </div>
     );
@@ -136,6 +146,6 @@ class CreateNew extends Component {
 export default CreateNew;
 
 
-// show loading only after metamask confirms tx
-// get to line after await (clear form, loading: false)
-// copy to clipboard new wallet address
+
+// show timer
+// timeElapsed % 60

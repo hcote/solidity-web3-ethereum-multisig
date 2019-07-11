@@ -59,7 +59,7 @@ body {
 }
 
 .reveal-btn {
-  margin-top: 5em;
+  margin-top: 50px;
 }
 
 .btn {
@@ -81,7 +81,30 @@ body {
   height: 40px;
 }
 
-.etherscan-link:visited, .etherscan-link:hover, .etherscan-link {
+.etherscan-link:visited, .etherscan-link {
   color: black;
   text-decoration: none;
+}
+
+.etherscan-link:hover {
+  color: #61dafb;
+}
+
+.eth-link-div {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.qrcode {
+  margin-bottom: 200px;
+}
+
+.newAddress {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
 }

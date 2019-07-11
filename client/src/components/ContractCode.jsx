@@ -6,8 +6,7 @@ class ContractCode extends Component {
   render() {
     return (
       <div className="contract-code-block">
-        {/* <h3>Contract Init New Wallet</h3> */}
-        <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h4>
+        <h6>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h6>
         <pre>
         <code><p>
         {`
@@ -17,7 +16,7 @@ class ContractCode extends Component {
 
         contract InitNewWallet {
         
-            address public newWalletAddress = 0x0000000000000000000000000000000000000000;
+            address public newWalletAddress = 0x0;
         
             function initNewWallet(address _owner1, address _owner2) public {
                 newWalletAddress = address(new MultiSig(_owner1, _owner2));
@@ -32,14 +31,13 @@ class ContractCode extends Component {
         </p>
         </code>
         </pre>
-        {/* <h3>Contract MultiSig</h3> */}
-        <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h4>
+        <h6>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h6>
         <pre className="second-pre">
         <code>
         {`
         pragma solidity ^0.5.8;
 
-        contract MultiSig {
+        contract ${<span className="contract-name">MultiSig</span>} {
             
             address public owner1;
             address public owner2;
@@ -85,9 +83,9 @@ class ContractCode extends Component {
                   owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6000) {
                     balance -= _amount;
                     owner1RequestedWithdraw = false;
-                    owner1RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
+                    owner1RequestedWithdrawTo = 0x0;
                     owner2RequestedWithdraw = false;
-                    owner2RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
+                    owner2RequestedWithdrawTo = 0x0;
                     _to.transfer(_amount);
                 }
             }  
@@ -101,3 +99,5 @@ class ContractCode extends Component {
 }
 
 export default ContractCode;
+
+// syntax highlight code

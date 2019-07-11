@@ -9,6 +9,7 @@ class App extends Component {
     accounts: null, 
     exContractInstance: null,
     exContractAddress: "",
+    exContractAddress2: "",
     exWalletBalance: null,
     owner1: null,
     owner1RequestedWithdraw: null,
@@ -33,6 +34,8 @@ class App extends Component {
       this.exContractAddressInput = this.exContractAddressInput.bind(this);
       this.withdrawAmountInput = this.withdrawAmountInput.bind(this);
       this.withdrawToInput = this.withdrawToInput.bind(this);
+
+      this.showTabs = this.showTabs.bind(this);
 
       this.getExContractInstance = this.getExContractInstance.bind(this);
       this.popDataFromExContract = this.popDataFromExContract.bind(this);
@@ -87,7 +90,8 @@ class App extends Component {
     e.preventDefault();
     const { web3, exContractAddress } = this.state;
     const instance = await new web3.eth.Contract(MultiSig.abi, exContractAddress);
-    this.setState({exContractInstance: instance, exContractAddress: "", disabledTwo: false })
+    var cAddr = exContractAddress;
+    this.setState({exContractInstance: instance, exContractAddress2: cAddr, exContractAddress: "", disabledTwo: false, disabled: true })
   }
 
   popDataFromExContract = async () => {
@@ -117,6 +121,22 @@ class App extends Component {
     this.setState({withdrawAmount: "", withdrawTo: ""})
   }
 
+  showTabs = (e) => {
+    console.log(e.target);
+    
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(e.target.value).style.display = "block";    
+    e.currentTarget.className += " active";
+  }
+
   render() {
     if (!this.state.web3) {
       return <div className="App">
@@ -132,12 +152,38 @@ class App extends Component {
           <input className="form btn" type="submit" value="Get Instance" disabled={this.state.disabled} />
         </form>
         {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabledTwo}></input>}
+        
         {this.state.owner1 ?
+          <div className="table-container">
+            
+              <h3 className="home-header">Contract Data</h3>
+              <div class="tab">
+                <button class="tablinks" value="general" onClick={this.showTabs.bind(this)}>General</button>
+                <button class="tablinks" value="owner-one" onClick={this.showTabs.bind(this)}>Owner One</button>
+                <button class="tablinks" value="owner-two" onClick={this.showTabs.bind(this)}>Owner Two</button>
+                <button class="tablinks" value="withdraw" onClick={this.showTabs.bind(this)}>Withdraw</button>
+              </div>
+
+              <div id="general" class="tabcontent">
+                <table className="general-table">
+                  <tbody>
+                    <tr>
+                      <td className="table-left"> Contract Address</td>
+                      <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.exContractAddress2}</td>
+                    </tr>
+                    <tr className="one">
+                      <td className="table-left">Balance</td>
+                      <td className="data table-right">{this.state.exWalletBalance} ether</td>
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+              
+
+
         <table>
-          <thead>
-            <th>Owner One</th>
-          </thead>
-          <tbody>
+        <div id="owner-one" class="tabcontent">
+        <tbody>
           <tr className="one">
             <td className="table-left">Address</td>
             <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1}</td>
@@ -155,8 +201,12 @@ class App extends Component {
             <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1RequestedWithdrawTo}</td>
           </tr>
           </tbody>
-          <tbody>
-            <th>Owner Two</th>
+
+        </div>
+        </table>
+        <table>
+        <div id="owner-two" class="tabcontent">
+        <tbody>
           <tr className="one">
             <td className="table-left">Address</td>
             <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner2}</td>
@@ -173,23 +223,29 @@ class App extends Component {
             <td className="table-left">Requested withdraw to</td>
             <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner2RequestedWithdrawTo}</td>
           </tr>
-          <tr className="one">
-            <td className="table-left">Balance</td>
-            <td className="data table-right">{this.state.exWalletBalance} ether</td>
-          </tr>
           </tbody>
-        </table> 
+
+      </div>
+      </table>
+
+
+
+      <div id="withdraw" class="tabcontent">
+      <form className="withdraw-form">
+                  <input className="w-form-1" type="number" min={0} placeholder="Ether..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
+                  <br/>
+                  <input className="w-form-2" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
+                  <input className="fillInAddrBtn" type="submit" value="Auto Fill" onClick={this.fillAdr} />
+                  <br/>
+                  <input className="w-form-1 w-btn" type="submit" value="Request Withdraw" onClick={this.submitWithdraw} disabled={this.state.disabledW} />
+                </form>
+
+        </div>
+
+
+        </div> 
         : <span></span>}
-        {this.state.owner1 ?
-          <form className="withdraw-form">
-          <h5>Submit Withdraw Request</h5>
-          <input className="w-form-1" type="number" min={0} placeholder="Ether..." value={this.state.withdrawAmount} onChange={this.withdrawAmountInput.bind(this)}/>
-          <br/>
-          <input className="w-form-2" type="text"  placeholder="To..." value={this.state.withdrawTo} onChange={this.withdrawToInput.bind(this)}/>
-          <input className="fillInAddrBtn" type="submit" value="Auto Fill" onClick={this.fillAdr} />
-          <br/>
-          <input className="w-form-1 w-btn" type="submit" value="Request Withdraw" onClick={this.submitWithdraw} disabled={this.state.disabledW} />
-        </form> : <span></span>}
+       
         </div>
     );
   }
@@ -197,4 +253,3 @@ class App extends Component {
 
 export default App;
 
-// add contract address to form

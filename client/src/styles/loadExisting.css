@@ -1,5 +1,5 @@
 table {
-  margin: 2em auto;
+  margin: 0 auto;
   border-style: hidden;
   border-collapse: separate;
   border-spacing: 0 10px;
@@ -100,5 +100,34 @@ th {
 }
 
 .withdraw-form {
+  margin-bottom: 33px;
+  margin-top: 30px;
+}
+
+.table-container {
+  background-color: black;
+  border-radius: 8px;
   margin-bottom: 200px;
+  margin-top: 80px;
+  padding: 50px;
+}
+
+.home-header {
+  color: #61dafb;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.withdraw-header {
+  color: #61dafb;
+  padding-top: 20px;
+  text-align: center;
+}
+
+#general {
+  height: 255px;
+}
+
+.general-table {
+  margin: 10px 0 0 0;
 }

@@ -1,9 +1,9 @@
 pre {
-  background-color: rgb(44, 46, 48);
+  background-color: rgb(32, 33, 34);
   width: 60%;
   margin: 0 auto;
   white-space: pre-wrap; 
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 code {
@@ -24,10 +24,11 @@ pre {
   margin: 0;
   padding: 0;
   width: 100%;
+  border-radius: 8px;
 }
 
 .second-pre {
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 }
 
 a:visited {
@@ -37,4 +38,16 @@ a:visited {
 
 a:hover {
   color: rgb(0, 204, 255);
+}
+
+h6 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin-top: 0px;
+}
+
+.contract-name {
+  color: purple;
 }

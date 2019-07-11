@@ -30,7 +30,7 @@ contract MultiSig {
     }
     
     function withdraw(uint _amount, address payable _to) public owner {
-        require(balance >= _amount, "Requested too much ether...");
+        require(balance >= _amount, "Not enough ether in your wallet...");
 
         if (msg.sender == owner1) {
             owner1RequestedWithdraw = true;
