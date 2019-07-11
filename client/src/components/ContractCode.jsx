@@ -5,7 +5,7 @@ class ContractCode extends Component {
 
   render() {
     return (
-      <div>
+      <div className="contract-code-block">
         <h3>Contract Init New Wallet</h3>
         <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h4>
         <pre>

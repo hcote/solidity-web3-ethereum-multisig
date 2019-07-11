@@ -9,6 +9,7 @@ body {
   width: 45%;
   margin: 0 auto;
   margin-top: 100px;
+  animation: fadeEffect 1s;
 }
 
 .App-logo {

@@ -12,3 +12,7 @@ code {
   font-size: .7em;
   color: aliceblue;
 }
+
+.contract-code-block {
+  animation: fadeEffect 1s;
+}
