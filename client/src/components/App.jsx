@@ -17,7 +17,7 @@ class App extends Component {
       <div className="container">
         <Nav />
         <Switch> 
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact={true} component={Home} />
           <Route path="/new" component={CreateNew} />
           <Route path="/load-from-address" component={LoadExisting} />
           <Route path="/qr-code" component={QR} />

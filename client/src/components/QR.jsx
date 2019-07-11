@@ -18,7 +18,7 @@ class QR extends Component {
   };
 
   addressInput = (e) => {
-    if (e.target.value.length == 42) {
+    if (e.target.value.length === 42) {
       this.setState({address: e.target.value, disabled: false});
     } else {
       this.setState({address: e.target.value, disabled: true})

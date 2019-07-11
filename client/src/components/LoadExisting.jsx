@@ -52,7 +52,7 @@ class App extends Component {
   };
 
   exContractAddressInput(e) {
-    if (e.target.value.length == 42) {
+    if (e.target.value.length === 42) {
       this.setState({exContractAddress: e.target.value, disabled: false});
     } else {
       this.setState({exContractAddress: e.target.value, disabled: true})
@@ -69,7 +69,7 @@ class App extends Component {
   }
 
   withdrawToInput(e) {    
-    if (e.target.value.length == 42) {
+    if (e.target.value.length === 42) {
       this.setState({withdrawTo: e.target.value, disabledW: false});
     } else {
       this.setState({withdrawTo: e.target.value, disabledW: true})
@@ -120,8 +120,8 @@ class App extends Component {
   render() {
     if (!this.state.web3) {
       return <div className="App">
-      Loading...
-      <img src="https://gph.is/2cwDetH" />
+      <p>Waiting to connect to MetaMask...</p>
+      <img className="loading-icon" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
     </div>;    }
     return (
       <div className="App">
@@ -154,6 +154,8 @@ class App extends Component {
             <td className="table-left">Requested withdraw to</td>
             <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1RequestedWithdrawTo}</td>
           </tr>
+          </tbody>
+          <tbody>
             <th>Owner Two</th>
           <tr className="one">
             <td className="table-left">Address</td>
@@ -195,10 +197,4 @@ class App extends Component {
 
 export default App;
 
-
-// what happens if:
-/* 
-- the second person requests more than the balance
-- the second person requests withdraw to a different address
-- 
-*/
+// add contract address to form

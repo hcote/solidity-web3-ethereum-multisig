@@ -15,6 +15,8 @@ class CreateNew extends Component {
     loading: false,
     disabled: true,
     qrCode: null,
+    confirmations: null,
+    txHash: null,
   };
 
   componentDidMount = async () => {
@@ -29,7 +31,6 @@ class CreateNew extends Component {
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
-      console.log(accounts);
       
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
@@ -50,8 +51,13 @@ class CreateNew extends Component {
     }
   };
 
+  copyVal(e) {
+    window.getSelection().getRangeAt(0);
+    document.execCommand("copy");
+  }
+
   handleChange(e) {
-    if (e.target.value.length == 42 && this.state.addr2.length == 42) {
+    if (e.target.value.length === 42 && this.state.addr2.length === 42) {
       this.setState({addr1: e.target.value, disabled: false});
     } else {
       this.setState({addr1: e.target.value, disabled: true})
@@ -59,7 +65,7 @@ class CreateNew extends Component {
   }
 
   handleChange2(e) {
-    if (e.target.value.length == 42 && this.state.addr1.length == 42) {
+    if (e.target.value.length === 42 && this.state.addr1.length === 42) {
       this.setState({addr2: e.target.value, disabled: false});
     } else {
       this.setState({addr2: e.target.value, disabled: true})
@@ -70,27 +76,27 @@ class CreateNew extends Component {
     const { contract } = this.state;
     // not working...
     const newWalAd = await contract.methods.get().call();
-    console.log(newWalAd);
-    
     this.setState({newWalAd: newWalAd});
   }
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    this.setState({loading: true});
     const {contract, web3, addr1, addr2 } = this.state;
     const accounts = await web3.eth.getAccounts();
-    await contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]});
-    // not getting here
-    this.setState({addr1: "", addr2: "", loading: false});
-    
+    this.setState({loading: true});
+    contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]})
+      .on('confirmation', (cn, r) => {
+        console.log(r);
+        this.setState({loading: false, confirmations: cn, txHash: r.transactionHash});
+      })
+    this.setState({addr1: "", addr2: "", disabled: true});
   }
 
   render() {
     if (!this.state.web3) {
       return <div className="App">
-        Loading...
-        <img src="https://gph.is/2cwDetH" />
+        <p>Waiting to connect to MetaMask...</p>
+        <img className="loading-icon" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
       </div>;
     }
     return (
@@ -104,12 +110,21 @@ class CreateNew extends Component {
           <input className="form btn" type="submit" value="Create" disabled={this.state.disabled} />
         </form>
         <br />
-       {/* {this.state.loading ? 
-          <div>Pending...</div> :
+       {this.state.loading ? 
+          <div>
+            <img className="loading-icon" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
+            <p>Tx is being mined...</p>
+          </div> :
           <div></div>
-        } */}
+        }
+        {this.state.confirmations ?
+              <div>
+                <div>Block confirmations: {this.state.confirmations}</div>
+                <div><a className="etherscan-link" target="_blank" href={`https://ropsten.etherscan.io/tx/${this.state.txHash}`}>Etherscan</a></div>
+                </div>
+           : <span></span>}
        <button className="form btn reveal-btn" onClick={this.reveal}>Reveal New Wallet Address</button>
-        <div>{this.state.newWalAd}</div>
+        <div onDoubleClick={this.copyVal.bind(this)} >{this.state.newWalAd}</div>
         <br />
         {this.state.newWalAd ? <img src={`https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${this.state.newWalAd}&choe=UTF-8`} alt=""/> : <span></span>}
         <br />
@@ -121,9 +136,6 @@ class CreateNew extends Component {
 export default CreateNew;
 
 
-// what happens if:
-/* 
-- the second person requests more than the balance
-- the second person requests withdraw to a different address
-- 
-*/
+// show loading only after metamask confirms tx
+// get to line after await (clear form, loading: false)
+// copy to clipboard new wallet address

@@ -76,3 +76,12 @@ body {
 *:focus {
   outline: none;
 }
+
+.loading-icon {
+  height: 40px;
+}
+
+.etherscan-link:visited, .etherscan-link:hover, .etherscan-link {
+  color: black;
+  text-decoration: none;
+}
