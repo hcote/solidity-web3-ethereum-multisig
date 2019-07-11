@@ -69,6 +69,7 @@ class App extends Component {
   copyVal(e) {
     window.getSelection().getRangeAt(0);
     document.execCommand("copy");
+    this.copied(e);
   }
 
   withdrawToInput(e) {    
@@ -121,9 +122,19 @@ class App extends Component {
     this.setState({withdrawAmount: "", withdrawTo: ""})
   }
 
-  showTabs = (e) => {
-    console.log(e.target);
+  copied(e) {
+    var span = document.getElementsByClassName("tooltiptext")[e.target.id];
+    console.log(span);
     
+    span.innerText = "Copied!";
+  }
+
+  revert() {
+    var span = document.getElementsByClassName("tooltiptext")[0]
+    span.innerText = "Double click to copy";
+  }
+
+  showTabs = (e) => {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -140,7 +151,7 @@ class App extends Component {
   render() {
     if (!this.state.web3) {
       return <div className="App">
-      <p>Waiting to connect to MetaMask...</p>
+      <p>Connecting to MetaMask...</p>
       <img className="loading-icon" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
     </div>;    }
     return (
@@ -169,7 +180,7 @@ class App extends Component {
                   <tbody>
                     <tr>
                       <td className="table-left"> Contract Address</td>
-                      <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.exContractAddress2}</td>
+                      <td onMouseOut={this.revert.bind(this)} onDoubleClick={this.copyVal.bind(this)} className="data table-right tooltip" id={0}><span className="tooltiptext">Double click to copy</span>{this.state.exContractAddress2}</td>
                     </tr>
                     <tr className="one">
                       <td className="table-left">Balance</td>
@@ -186,7 +197,7 @@ class App extends Component {
         <tbody>
           <tr className="one">
             <td className="table-left">Address</td>
-            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1}</td>
+            <td onMouseOut={this.revert.bind(this)} onClick={this.copied.bind(this)} onDoubleClick={this.copyVal.bind(this)} className="data table-right tooltip" id={1}><span className="tooltiptext">Double click to copy</span>{this.state.owner1}</td>
           </tr>
           <tr className="">
             <td className="table-left">Has open withdraw</td>
@@ -198,7 +209,7 @@ class App extends Component {
           </tr>
           <tr className="">
             <td className="table-left">Requested withdraw to</td>
-            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1RequestedWithdrawTo}</td>
+            <td onMouseOut={this.revert.bind(this)} onClick={this.copied.bind(this)} onDoubleClick={this.copyVal.bind(this)} className="data table-right tooltip" id={2}><span className="tooltiptext">Double click to copy</span>{this.state.owner1RequestedWithdrawTo}</td>
           </tr>
           </tbody>
 
@@ -209,7 +220,7 @@ class App extends Component {
         <tbody>
           <tr className="one">
             <td className="table-left">Address</td>
-            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner2}</td>
+            <td onMouseOut={this.revert.bind(this)} onClick={this.copied.bind(this)} onDoubleClick={this.copyVal.bind(this)} className="data table-right tooltip" id={3}><span className="tooltiptext">Double click to copy</span>{this.state.owner2}</td>
           </tr>
           <tr>
             <td className="table-left">Has open withdraw</td>
@@ -221,7 +232,7 @@ class App extends Component {
           </tr>
           <tr>
             <td className="table-left">Requested withdraw to</td>
-            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner2RequestedWithdrawTo}</td>
+            <td onMouseOut={this.revert.bind(this)} onClick={this.copied.bind(this)} onDoubleClick={this.copyVal.bind(this)} className="data table-right tooltip" id={4}><span className="tooltiptext">Double click to copy</span>{this.state.owner2RequestedWithdrawTo}</td>
           </tr>
           </tbody>
 

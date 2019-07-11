@@ -102,7 +102,7 @@ class CreateNew extends Component {
   render() {
     if (!this.state.web3) {
       return <div className="App">
-        <p>Waiting to connect to MetaMask...</p>
+        <p>Connecting to MetaMask...</p>
         <img className="loading-icon" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
       </div>;
     }

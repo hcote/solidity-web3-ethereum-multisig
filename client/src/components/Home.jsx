@@ -13,9 +13,7 @@ class Home extends Component {
     }
   };
 
-  showInstructions = (e) => {
-    console.log(e.target);
-    
+  showInstructions = (e) => {    
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
