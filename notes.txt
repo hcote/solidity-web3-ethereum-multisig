@@ -7,3 +7,12 @@ loading bar during mining
 display interface only after button is clicked
   interface formatting
 load all wallets given an address
+
+
+
+
+add withdraw requested amount (need to redeploy)
+copy to clipboard new wallet address
+  show confirmation of this
+have a way to connect to main or ropsten networks
+create function to allow users to retrieve all wallets they are part owners of
