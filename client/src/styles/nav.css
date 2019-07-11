@@ -34,15 +34,15 @@ a {
   text-decoration: none;
 }
 
-/* .logo {
-  height: 60px;
-  float: left;
-  margin-left: -8px;
-  margin-top: -4px;
-} */
-
 .logo {
   height: 45px;
   float: left;
   padding: 14px;
+}
+
+.networkName {
+  float: left;
+  margin-top: 28px;
+  color: rgb(141, 167, 187);
+  font-size: 16px;
 }

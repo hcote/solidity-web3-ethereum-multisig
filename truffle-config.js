@@ -1,7 +1,7 @@
 const path = require("path");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 // test wallet ONLY - contains no actual ether
-const mnemonic = "cross chat obtain casino frame hen tape load bone desert sun illness"
+import mnemonic from "./mn.js"
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -17,7 +17,11 @@ module.exports = {
       },
       network_id: 3
     },
+    main: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/d26fa7f5deca4f8d952d53ca9a8d71ce")
+      },
+      network_id: 1
+    },
   }
 };
-
-// 0x7f59e92A3FB0945e17366921DEE8677F736D3B41 - multisig created on ropsten

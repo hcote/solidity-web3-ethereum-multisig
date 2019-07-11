@@ -1,14 +1,45 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import getWeb3 from "../utils/getWeb3";
 import "../styles/nav.css"
 
 class Nav extends Component {
+
+  state = { 
+    networkName: "", 
+    web3: null, 
+    accounts: null,
+  }
+
+  componentDidMount = async () => {
+    try {
+      // Get network provider and web3 instance.
+      const web3 = await getWeb3();
+      
+      var network;
+      // Get the contract instance.
+      const networkId = await web3.eth.net.getId();
+      if (networkId === 3) {
+        network = "Ropsten"
+      }
+      if (networkId === 1) {
+        network = "Main"
+      }
+      this.setState({ networkName: network });
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      alert(
+        `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
+    }
+  }
 
   render() {
     return (
       <nav>
         <img src="https://trinity.ethereum.org/images/eth-logo@2x.png" alt="" className="logo"/>
-        {/* <img src="https://cashforgoldandcoins2.com/wp-content/uploads/2018/10/ethereum-logo-transparent-1.png" alt="" className="logo"/> */}
+        {this.state.networkName ? <span className="networkName">Network: {this.state.networkName}</span> : <span className="networkName">Please connect to Ropsten or Main net.</span>}
         <div className="nav-container">
           <ul className="nav-list">
             <Link to="/" exact><li className="nav-list-item">Home</li></Link>
