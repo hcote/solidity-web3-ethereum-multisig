@@ -10,6 +10,9 @@ contract MultiSig {
     address public owner2RequestedWithdrawTo;
     uint public owner1RequestedWithdrawAtBlock;
     uint public owner2RequestedWithdrawAtBlock;
+    uint public owner1RequestedWithdrawAmount = 0;
+    uint public owner2RequestedWithdrawAmount = 0;
+    uint private amountBeingWithdrawn;
     uint public balance = 0;
 
     modifier owner() {
@@ -33,19 +36,32 @@ contract MultiSig {
             owner1RequestedWithdraw = true;
             owner1RequestedWithdrawTo = _to;
             owner1RequestedWithdrawAtBlock = block.number;
+            owner1RequestedWithdrawAmount = _amount;
         }
+
         if (msg.sender == owner2) {
             owner2RequestedWithdraw = true;
             owner2RequestedWithdrawTo = _to;
             owner2RequestedWithdrawAtBlock = block.number;
+            owner1RequestedWithdrawAmount = _amount;
         }
-        if (owner1RequestedWithdraw && owner2RequestedWithdraw && owner1RequestedWithdrawTo == owner2RequestedWithdrawTo && owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6171 || owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6171) {
-            balance -= _amount;
+
+        if (owner1RequestedWithdraw >= owner2RequestedWithdraw) {
+            amountBeingWithdrawn = owner2RequestedWithdraw;
+        } else {
+            amountBeingWithdrawn = owner1RequestedWithdraw;
+        }
+
+        if (owner1RequestedWithdraw && owner2RequestedWithdraw && 
+        owner1RequestedWithdrawTo == owner2RequestedWithdrawTo && 
+        owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6000 || 
+        owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6000) {
+            balance -= amountBeingWithdrawn;
             owner1RequestedWithdraw = false;
             owner1RequestedWithdrawTo = 0x0;
             owner2RequestedWithdraw = false;
             owner2RequestedWithdrawTo = 0x0;
-            _to.transfer(_amount);
+            _to.transfer(amountBeingWithdrawn);
         }
     }
     

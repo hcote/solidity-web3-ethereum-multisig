@@ -15,4 +15,26 @@ code {
 
 .contract-code-block {
   animation: fadeEffect 1s;
+  width: 970px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+pre {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.second-pre {
+  margin-bottom: 200px;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: rgb(0, 204, 255);
 }

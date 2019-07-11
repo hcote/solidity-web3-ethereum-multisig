@@ -32,6 +32,10 @@ body {
   color: #61dafb;
 }
 
+.header {
+  margin-bottom: 50px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -47,7 +51,7 @@ body {
 
 .form {
   padding: 10px;
-  margin: 10px;
+  margin: 13px 10px;
   border-radius: 8px;
   width: 500px;
   box-sizing: border-box;

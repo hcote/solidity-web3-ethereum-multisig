@@ -6,7 +6,7 @@ class ContractCode extends Component {
   render() {
     return (
       <div className="contract-code-block">
-        <h3>Contract Init New Wallet</h3>
+        {/* <h3>Contract Init New Wallet</h3> */}
         <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h4>
         <pre>
         <code><p>
@@ -14,9 +14,9 @@ class ContractCode extends Component {
         pragma solidity ^0.5.8;
 
         import "./MultiSig.sol";
-        
+
         contract InitNewWallet {
-            
+        
             address public newWalletAddress = 0x0000000000000000000000000000000000000000;
         
             function initNewWallet(address _owner1, address _owner2) public {
@@ -32,9 +32,9 @@ class ContractCode extends Component {
         </p>
         </code>
         </pre>
-        <h3>Contract MultiSig</h3>
+        {/* <h3>Contract MultiSig</h3> */}
         <h4>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h4>
-        <pre>
+        <pre className="second-pre">
         <code>
         {`
         pragma solidity ^0.5.8;
@@ -81,8 +81,8 @@ class ContractCode extends Component {
                 }
                 if (owner1RequestedWithdraw && owner2RequestedWithdraw && 
                   owner1RequestedWithdrawTo == owner2RequestedWithdrawTo && 
-                  owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6171 || 
-                  owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6171) {
+                  owner1RequestedWithdrawAtBlock - owner2RequestedWithdrawAtBlock <= 6000 || 
+                  owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6000) {
                     balance -= _amount;
                     owner1RequestedWithdraw = false;
                     owner1RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;

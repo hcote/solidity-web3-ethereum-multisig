@@ -63,6 +63,11 @@ class App extends Component {
     this.setState({withdrawAmount: e.target.value})
   }
 
+  copyVal(e) {
+    window.getSelection().getRangeAt(0);
+    document.execCommand("copy");
+  }
+
   withdrawToInput(e) {    
     if (e.target.value.length == 42) {
       this.setState({withdrawTo: e.target.value, disabledW: false});
@@ -114,11 +119,13 @@ class App extends Component {
 
   render() {
     if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
-    }
+      return <div className="App">
+      Loading...
+      <img src="https://gph.is/2cwDetH" />
+    </div>;    }
     return (
       <div className="App">
-        <h3>Get existing multi-sig wallet</h3>
+        <h3 className="header">Get existing multi-sig wallet</h3>
         <form onSubmit={this.getExContractInstance}>
           <input placeholder="At Address..." className="form" type="text" name="exContractAddress" value={this.state.exContractAddress} onChange={this.exContractAddressInput.bind(this)} />
           <br/>
@@ -128,12 +135,12 @@ class App extends Component {
         {this.state.owner1 ?
         <table>
           <thead>
-            <th colSpan="2">Owner One</th>
+            <th>Owner One</th>
           </thead>
           <tbody>
           <tr className="one">
             <td className="table-left">Address</td>
-            <td className="data table-right">{this.state.owner1}</td>
+            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1}</td>
           </tr>
           <tr className="">
             <td className="table-left">Has open withdraw</td>
@@ -145,12 +152,12 @@ class App extends Component {
           </tr>
           <tr className="">
             <td className="table-left">Requested withdraw to</td>
-            <td className="data table-right">{this.state.owner1RequestedWithdrawTo}</td>
+            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner1RequestedWithdrawTo}</td>
           </tr>
-            <th colSpan="2">Owner Two</th>
+            <th>Owner Two</th>
           <tr className="one">
             <td className="table-left">Address</td>
-            <td className="data table-right">{this.state.owner2}</td>
+            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner2}</td>
           </tr>
           <tr>
             <td className="table-left">Has open withdraw</td>
@@ -162,7 +169,7 @@ class App extends Component {
           </tr>
           <tr>
             <td className="table-left">Requested withdraw to</td>
-            <td className="data table-right">{this.state.owner2RequestedWithdrawTo}</td>
+            <td onDoubleClick={this.copyVal.bind(this)} className="data table-right">{this.state.owner2RequestedWithdrawTo}</td>
           </tr>
           <tr className="one">
             <td className="table-left">Balance</td>

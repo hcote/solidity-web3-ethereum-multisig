@@ -88,11 +88,14 @@ class CreateNew extends Component {
 
   render() {
     if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+      return <div className="App">
+        Loading...
+        <img src="https://gph.is/2cwDetH" />
+      </div>;
     }
     return (
       <div className="App">
-        <h3>Create your own multi-sig wallet.</h3>
+        <h3 className="header">Create your own multi-sig wallet.</h3>
         <form onSubmit={this.handleSubmit}>
             <input className="form" type="text" name="addr1" placeholder="Address 1..." value={this.state.addr1} onChange={this.handleChange.bind(this)} />
             <br />
