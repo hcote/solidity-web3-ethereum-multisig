@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "client/react-scripts start",
+    "start": "./client/node_modules/react-scripts start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
