@@ -5,7 +5,7 @@ import Nav from "./Nav";
 import ContractCode from "./ContractCode";
 import Home from "./Home";
 import QR from "./QR";
-import Footer from "./Footer";
+import Search from "./Search";
 import "../styles/app.css";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -22,6 +22,7 @@ class App extends Component {
           <Route path="/load-from-address" component={LoadExisting} />
           <Route path="/qr-code" component={QR} />
           <Route path="/contract-code" component={ContractCode} />
+          <Route path="/search" component={Search} />
         </Switch>
       </div>
       {/* <Footer /> */}

@@ -38,8 +38,9 @@ class Nav extends Component {
   render() {
     return (
       <nav>
-        <img src="https://trinity.ethereum.org/images/eth-logo@2x.png" alt="" className="logo"/>
-        {this.state.networkName ? <span className="networkName">Network: {this.state.networkName}</span> : <span className="networkName">Please connect to Ropsten or Main net.</span>}
+        {/* <img src="https://trinity.ethereum.org/images/eth-logo@2x.png" alt="" className="logo"/> */}
+        <img src={`https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmaxcdn.icons8.com%2FShare%2Ficon%2Fnolan%2FSecurity%2Fkey_security1600.png&f=1`} alt="" className="logo"/>
+        {this.state.networkName ? <span className="networkName">Network: {this.state.networkName}</span> : <span className="networkName-none">Please connect to Ropsten or Main net.</span>}
         <div className="nav-container">
           <ul className="nav-list">
             <Link to="/" exact><li className="nav-list-item">Home</li></Link>

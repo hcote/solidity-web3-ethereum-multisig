@@ -12,7 +12,6 @@ load all wallets given an address
 
 
 add withdraw requested amount (need to redeploy)
-copy to clipboard new wallet address
-  show confirmation of this
-have a way to connect to main or ropsten networks
 create function to allow users to retrieve all wallets they are part owners of
+  maybe through the etherscan API
+  - loop through txs sent from accounts[0] to contract address

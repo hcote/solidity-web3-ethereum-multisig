@@ -96,6 +96,7 @@ class App extends Component {
   }
 
   popDataFromExContract = async () => {
+    this.setState({loading: true});
     const { exContractInstance, web3 } = this.state;
     const accounts = await web3.eth.getAccounts();
     let exWalletBalance;
@@ -110,7 +111,7 @@ class App extends Component {
     await exContractInstance.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
     await exContractInstance.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
     await exContractInstance.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
-    this.setState({exWalletBalance: exWalletBalance, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo})
+    this.setState({exWalletBalance: exWalletBalance, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo, loading: false})
   }
 
   submitWithdraw = async (e) => {
@@ -163,7 +164,13 @@ class App extends Component {
           <input className="form btn" type="submit" value="Get Instance" disabled={this.state.disabled} />
         </form>
         {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabledTwo}></input>}
-        
+        {this.state.loading ? 
+          <div>
+            <img className="loading-icon-load-existing-page" src="https://media.giphy.com/media/eJWyod5gLxdcY/giphy.gif" />
+          </div> :
+          null
+        }
+
         {this.state.owner1 ?
           <div className="table-container">
             
@@ -179,7 +186,7 @@ class App extends Component {
                 <table className="general-table">
                   <tbody>
                     <tr>
-                      <td className="table-left"> Contract Address</td>
+                      <td className="table-left adr"> Contract Address</td>
                       <td onMouseOut={this.revert.bind(this)} onDoubleClick={this.copyVal.bind(this)} className="data table-right tooltip" id={0}><span className="tooltiptext">Double click to copy</span>{this.state.exContractAddress2}</td>
                     </tr>
                     <tr className="one">

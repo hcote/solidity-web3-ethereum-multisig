@@ -39,7 +39,7 @@ class Home extends Component {
 
         <div id="create" class="tabcontent">
         <ol>
-            <li className="instructions-item first-item">Enter in the two addresses that will control it and hit "Create".</li>
+            <li className="instructions-item first-item">Enter in the two addresses that will control it and click "Create".</li>
             <li className="instructions-item">Once the tx is mined, you can get the address it's deployed to by clicking "Reveal new wallet address".</li>
           </ol>
         </div>

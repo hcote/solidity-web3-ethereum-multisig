@@ -6,7 +6,8 @@ class ContractCode extends Component {
   render() {
     return (
       <div className="contract-code-block">
-        <h6>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h6>
+        <h6>Address (main): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h6>
+        <h6 className="ropsten">Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0x37ca6f372a91b794cb2995164f8b19c7372f658e">0x37ca6F372A91B794CB2995164F8B19c7372f658e</a></h6>
         <pre>
         <code><p>
         {`
@@ -31,7 +32,8 @@ class ContractCode extends Component {
         </p>
         </code>
         </pre>
-        <h6>Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h6>
+        <h6>Address (main): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h6>
+        <h6 className="ropsten">Address (ropsten): <a target="_blank" href="https://ropsten.etherscan.io/address/0xe3043c1e8c46affbae21794670e2fde8fe5838f1">0xe3043c1e8C46AFfbae21794670E2FDE8fE5838F1</a></h6>
         <pre className="second-pre">
         <code>
         {`

@@ -53,7 +53,7 @@ input:disabled:hover {
 }
 
 .fillInAddrBtn {
-  height: 42px;
+  height: 41px;
   text-align: center;
   margin-top: 10px;
   /* padding: 0 5px; */
@@ -62,6 +62,7 @@ input:disabled:hover {
   font-size: .7em;
   border-radius: 0 8px 8px 0;
   width: 90px;
+  border: 1px solid #61dafb;
 }
 
 .fillInAddrBtn:hover {
@@ -133,13 +134,15 @@ th {
   margin: 10px 0 0 0;
 }
 
-
+.loading-icon-load-existing-page {
+  margin: auto;
+  margin-top: 50px;
+  height: 40px;
+}
 
 
 .tooltip {
   position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
 
 /* Tooltip text */
@@ -155,7 +158,7 @@ th {
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  bottom: 180%;
+  bottom: 100%;
   left: 50%;
   margin-left: -60px;
 
@@ -180,4 +183,8 @@ th {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.adr {
+  width: 180px;
 }

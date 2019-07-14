@@ -3,6 +3,8 @@ import InitNewWallet from "../contracts/InitNewWallet.json";
 import getWeb3 from "../utils/getWeb3";
 import "../styles/app.css";
 
+// need to deploy to main net and make sure it knows the address
+
 class CreateNew extends Component {
   state = { 
     storageValue: "",
@@ -98,12 +100,11 @@ class CreateNew extends Component {
     const accounts = await web3.eth.getAccounts();
     contract.methods.initNewWallet(addr1, addr2).send({from: accounts[0]})
       .once('transactionHash', (hash) => {
-        this.setState({loading: true, txHash: hash})
+        this.setState({loading: true, txHash: hash, addr1: "", addr2: "", disabled: true})
       })
       .on('confirmation', (cn, r) => {
         this.setState({loading: false, confirmations: cn, disabledReveal: false});
       })
-    this.setState({addr1: "", addr2: "", disabled: true});
   }
 
   render() {
