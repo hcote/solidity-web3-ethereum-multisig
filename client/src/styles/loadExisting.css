@@ -68,6 +68,7 @@ input:disabled:hover {
 .fillInAddrBtn:hover {
   background-color: #61dafb;
   color: black;
+  animation: fadeEffect .5s;
 }
 
 .table-left {
