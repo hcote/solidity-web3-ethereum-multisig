@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
   },
   "homepage": "https://github.com/hcote/smart-contract-multi-sig-wallet#readme",
   "dependencies": {
+    "react-scripts": "^3.0.1",
     "truffle-hdwallet-provider": "^1.0.13"
   }
 }
