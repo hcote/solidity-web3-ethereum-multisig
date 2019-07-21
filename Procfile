@@ -1,1 +1,1 @@
-web: client
+web: client/start
