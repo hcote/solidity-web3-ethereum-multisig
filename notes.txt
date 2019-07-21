@@ -1,7 +1,5 @@
 add withdraw requested amount (need to redeploy)
 
-NEED A WAY TO RETRIEVE ALL CONTRACTS CREATED
-
 Add hamburger menu
 
 How could I allow users to submit a withdraw request from coinbase address (not metamask)
