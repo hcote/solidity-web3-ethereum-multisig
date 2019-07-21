@@ -41,6 +41,7 @@ class Home extends Component {
         <ol>
             <li className="instructions-item first-item">Enter in the two addresses that will control it and click "Create".</li>
             <li className="instructions-item">Once the tx is mined, you can get the address it's deployed to by clicking "Reveal new wallet address".</li>
+            <li className="instructions-item">Note: It should cost roughly 0.00065 Ether or $0.15 to create a new wallet.</li>
           </ol>
         </div>
 

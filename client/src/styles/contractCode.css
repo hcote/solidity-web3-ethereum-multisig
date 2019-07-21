@@ -31,7 +31,7 @@ pre {
   margin-bottom: 100px;
 }
 
-a:visited {
+a, a:visited {
   text-decoration: none;
   color: black;
 }

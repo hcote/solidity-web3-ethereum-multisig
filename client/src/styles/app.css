@@ -112,3 +112,15 @@ a[target="_blank"]::after {
 .confirmations {
   color: green;
 }
+
+.wallet-list {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.wallet-item {
+  list-style-type: none;
+  margin: 6px;
+  animation: fadeEffect 1s;
+  font-family: 'Courier New', Courier, monospace;
+}

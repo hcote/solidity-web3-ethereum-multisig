@@ -1,17 +1,7 @@
-form validation
-contract refactoring for looks/ease of reading
-css transitions
-textured background
-logo/favicon
-loading bar during mining
-display interface only after button is clicked
-  interface formatting
-load all wallets given an address
-
-
-
-
 add withdraw requested amount (need to redeploy)
-create function to allow users to retrieve all wallets they are part owners of
-  maybe through the etherscan API
-  - loop through txs sent from accounts[0] to contract address
+
+NEED A WAY TO RETRIEVE ALL CONTRACTS CREATED
+
+Add hamburger menu
+
+How could I allow users to submit a withdraw request from coinbase address (not metamask)

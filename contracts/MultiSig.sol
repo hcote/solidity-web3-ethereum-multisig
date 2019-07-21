@@ -12,7 +12,7 @@ contract MultiSig {
     uint public owner2RequestedWithdrawAtBlock;
     uint public owner1RequestedWithdrawAmount = 0;
     uint public owner2RequestedWithdrawAmount = 0;
-    uint private amountBeingWithdrawn;
+    uint private amountBeingWithdrawn = 0;
     uint public balance = 0;
 
     modifier owner() {
@@ -32,6 +32,8 @@ contract MultiSig {
     function withdraw(uint _amount, address payable _to) public owner {
         require(balance >= _amount, "Not enough ether in your wallet...");
 
+        amountBeingWithdrawn = _amount;
+
         if (msg.sender == owner1) {
             owner1RequestedWithdraw = true;
             owner1RequestedWithdrawTo = _to;
@@ -46,10 +48,10 @@ contract MultiSig {
             owner1RequestedWithdrawAmount = _amount;
         }
 
-        if (owner1RequestedWithdraw >= owner2RequestedWithdraw) {
-            amountBeingWithdrawn = owner2RequestedWithdraw;
+        if (owner1RequestedWithdrawAmount >= owner2RequestedWithdrawAmount) {
+            amountBeingWithdrawn = owner2RequestedWithdrawAmount;
         } else {
-            amountBeingWithdrawn = owner1RequestedWithdraw;
+            amountBeingWithdrawn = owner1RequestedWithdrawAmount;
         }
 
         if (owner1RequestedWithdraw && owner2RequestedWithdraw && 
@@ -58,9 +60,9 @@ contract MultiSig {
         owner2RequestedWithdrawAtBlock - owner1RequestedWithdrawAtBlock <= 6000) {
             balance -= amountBeingWithdrawn;
             owner1RequestedWithdraw = false;
-            owner1RequestedWithdrawTo = 0x0;
+            owner1RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
             owner2RequestedWithdraw = false;
-            owner2RequestedWithdrawTo = 0x0;
+            owner2RequestedWithdrawTo = 0x0000000000000000000000000000000000000000;
             _to.transfer(amountBeingWithdrawn);
         }
     }
