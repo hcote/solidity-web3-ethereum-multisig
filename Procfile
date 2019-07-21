@@ -1,1 +1,1 @@
-web: client/start
+web: client/node_modules/react-script/scripts/build.js
