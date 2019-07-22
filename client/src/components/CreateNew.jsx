@@ -44,7 +44,7 @@ class CreateNew extends Component {
 
       // ISSUE: returns undefined for main net
       // reason - have not deployed contract to main net.
-      console.log(deployedNetwork);
+      // console.log(deployedNetwork);
       
       const instance = await new web3.eth.Contract(
         InitNewWallet.abi,
