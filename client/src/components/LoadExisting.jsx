@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import MultiSig from "../contracts/MultiSig.json";
 import getWeb3 from "../utils/getWeb3";
+import axios from 'axios';
+
 import "../styles/loadExisting.css";
 
 class App extends Component {
@@ -26,6 +28,7 @@ class App extends Component {
     disabledTwo: true,
     disabledW: true,
     qrCode: null,
+    ethPrice: null,
   };
 
   componentDidMount = async () => {
@@ -111,6 +114,8 @@ class App extends Component {
     await exContractInstance.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
     await exContractInstance.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
     await exContractInstance.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
+    // axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=J7K9XSP96V257PGTUPV6XJRSYTNMKD5M37')
+    // .then(json => console.log(json)) returning empty object
     this.setState({exWalletBalance: exWalletBalance, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo, loading: false})
   }
 
@@ -191,7 +196,7 @@ class App extends Component {
                     </tr>
                     <tr className="one">
                       <td className="table-left">Balance</td>
-                      <td className="data table-right">{this.state.exWalletBalance} ether</td>
+                      <td className="data table-right">{this.state.exWalletBalance} ether ($ {this.state.exWalletBalance * this.state.ethPrice})</td>
                     </tr>
                     </tbody>
                 </table>
