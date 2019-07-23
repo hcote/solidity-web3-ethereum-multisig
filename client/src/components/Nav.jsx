@@ -45,7 +45,7 @@ class Nav extends Component {
             <a href="/new"><li className="nav-list-item">Create New</li></a>
             <a href="/load-from-address"><li className="nav-list-item">Load From Address</li></a>
             <Link to="/qr-code"><li className="nav-list-item">QR Code</li></Link>
-            <a href="/search"><li className="nav-list-item">Search</li></a>
+            {/* <a href="/search"><li className="nav-list-item">Search</li></a> */}
             <Link to="/contract-code"><li className="nav-list-item">Smart Contract</li></Link>
           </ul>
         </div>
