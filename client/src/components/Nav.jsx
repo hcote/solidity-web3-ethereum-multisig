@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import getWeb3 from "../utils/getWeb3";
-import "../styles/nav.css"
+import "../styles/nav.css";
+import Menu from 'react-burger-menu/lib/menus/slide';
 
 class Nav extends Component {
 
@@ -49,10 +50,20 @@ class Nav extends Component {
             <Link to="/contract-code"><li className="nav-list-item">Smart Contract</li></Link>
           </ul>
         </div>
-        
+        <Menu right   >
+        <ul className="nav-list">
+            <Link to="/" exact><li className="collapsed-nav-list-item">Home</li></Link>
+            <a href="/new"><li className="collapsed-nav-list-item">Create New</li></a>
+            <a href="/load-from-address"><li className="collapsed-nav-list-item">Load From Address</li></a>
+            <Link to="/qr-code"><li className="collapsed-nav-list-item">QR Code</li></Link>
+            {/* <a href="/search"><li className="collapsed-nav-list-item">Search</li></a> */}
+            <Link to="/contract-code"><li className="collapsed-nav-list-item">Smart Contract</li></Link>
+          </ul>
+        </Menu>
       </nav>
     );
   }
 }
 
 export default Nav;
+

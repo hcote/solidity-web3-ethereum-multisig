@@ -23,7 +23,7 @@ class ContractCode extends Component {
                 newWalletAddress = address(new MultiSig(_owner1, _owner2));
             }
         
-            function get() public view returns (address) {
+            function getNewWalletAddress() public view returns (address) {
                 return newWalletAddress;
             }
         

@@ -2,7 +2,7 @@ const path = require("path");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 
 const fs = require('fs');
-const mnemonic = fs.readFileSync("../.secret").toString().trim();
+const mn = fs.readFileSync("../.secret").toString().trim();
 const key = fs.readFileSync("../.key").toString().trim();
 
 module.exports = {
@@ -13,13 +13,13 @@ module.exports = {
     },
     ropsten: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/${key}`)
+        return new HDWalletProvider(mn, `https://ropsten.infura.io/v3/${key}`)
       },
       network_id: 3
     },
     main: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/${key}`)
+        return new HDWalletProvider(mn, `https://mainnet.infura.io/v3/${key}`)
       },
       network_id: 1
     },
