@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import InitNewWallet from "../contracts/InitNewWallet.json";
 import getWeb3 from "../utils/getWeb3";
 import "../styles/app.css";
+import ENSAddress from '@ensdomains/react-ens-address';
 
 // need to deploy to main net and make sure it knows the address
 

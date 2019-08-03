@@ -1,4 +1,2 @@
 add withdraw requested amount (need to redeploy)
 Make inputs ENS compatable
-Add hamburger menu
-How could I allow users to submit a withdraw request from coinbase address (not metamask)

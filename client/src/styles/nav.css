@@ -77,7 +77,8 @@ a {
 .collapsed-nav-list-item {
   display: block;
   color: rgb(0, 204, 255);
-  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-bottom: 30px;
   text-align: center;
 }
 

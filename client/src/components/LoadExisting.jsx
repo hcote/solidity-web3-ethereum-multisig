@@ -29,6 +29,7 @@ class App extends Component {
     disabledW: true,
     qrCode: null,
     ethPrice: null,
+    err: null,
   };
 
   componentDidMount = async () => {
@@ -47,7 +48,6 @@ class App extends Component {
       const web3 = await getWeb3();
       const accounts = await web3.eth.getAccounts();
       this.setState({ web3, accounts });
-      
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -105,18 +105,21 @@ class App extends Component {
     let exWalletBalance;
     let owner1, owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo;
     let owner2, owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo;
-    await exContractInstance.methods.balance.call({from: accounts[0]}).then(res=> exWalletBalance = web3.utils.fromWei(res.toString(), 'ether'));
-    await exContractInstance.methods.owner1.call({from: accounts[0]}).then(res=> owner1 = res);
-    await exContractInstance.methods.owner1RequestedWithdraw.call({from: accounts[0]}).then(res=> owner1RequestedWithdraw = res.toString());
-    await exContractInstance.methods.owner1RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawAtBlock = res.toNumber());
-    await exContractInstance.methods.owner1RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawTo = res);
-    await exContractInstance.methods.owner2.call({from: accounts[0]}).then(res=> owner2 = res);
-    await exContractInstance.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
-    await exContractInstance.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
-    await exContractInstance.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res);  
-    // axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=J7K9XSP96V257PGTUPV6XJRSYTNMKD5M37')
-    // .then(json => console.log(json)) returning empty object
-    this.setState({exWalletBalance: exWalletBalance, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo, loading: false})
+    try {
+      await exContractInstance.methods.balance.call({from: accounts[0]}).then(res=> exWalletBalance = web3.utils.fromWei(res.toString(), 'ether'));
+      await exContractInstance.methods.owner1.call({from: accounts[0]}).then(res=> owner1 = res);
+      await exContractInstance.methods.owner1RequestedWithdraw.call({from: accounts[0]}).then(res=> owner1RequestedWithdraw = res.toString());
+      await exContractInstance.methods.owner1RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawAtBlock = res.toNumber());
+      await exContractInstance.methods.owner1RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner1RequestedWithdrawTo = res);
+      await exContractInstance.methods.owner2.call({from: accounts[0]}).then(res=> owner2 = res);
+      await exContractInstance.methods.owner2RequestedWithdraw.call({from: accounts[0]}).then(res=> owner2RequestedWithdraw = res.toString());
+      await exContractInstance.methods.owner2RequestedWithdrawAtBlock.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawAtBlock = res.toNumber());
+      await exContractInstance.methods.owner2RequestedWithdrawTo.call({from: accounts[0]}).then(res=> owner2RequestedWithdrawTo = res); 
+      
+      this.setState({exWalletBalance: exWalletBalance, owner1: owner1, owner1RequestedWithdraw: owner1RequestedWithdraw, owner1RequestedWithdrawAtBlock: owner1RequestedWithdrawAtBlock, owner1RequestedWithdrawTo: owner1RequestedWithdrawTo, owner2: owner2, owner2RequestedWithdraw: owner2RequestedWithdraw, owner2RequestedWithdrawAtBlock: owner2RequestedWithdrawAtBlock, owner2RequestedWithdrawTo: owner2RequestedWithdrawTo, loading: false, err: null})  
+    } catch (error) {
+      this.setState({loading: false, err: "Invalid Contract Address"})
+    }
   }
 
   submitWithdraw = async (e) => {
@@ -168,6 +171,7 @@ class App extends Component {
           <br/>
           <input className="form btn" type="submit" value="Get Instance" disabled={this.state.disabled} />
         </form>
+        {this.state.err ? <p className="error">{this.state.err}</p> : <span></span>}
         {this.state.owner1 ? <input className="form btn" type="submit" value="Refresh Interface" onClick={this.popDataFromExContract}></input> : <input className="form btn" type="submit" value="Display Interface" onClick={this.popDataFromExContract} disabled={this.state.disabledTwo}></input>}
         {this.state.loading ? 
           <div>
@@ -196,7 +200,7 @@ class App extends Component {
                     </tr>
                     <tr className="one">
                       <td className="table-left">Balance</td>
-                      <td className="data table-right">{this.state.exWalletBalance} ether ($ {this.state.exWalletBalance * this.state.ethPrice})</td>
+                      <td className="data table-right">{this.state.exWalletBalance}</td>
                     </tr>
                     </tbody>
                 </table>
