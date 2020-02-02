@@ -7,7 +7,7 @@
 ### Quick Note
 Users can only interact with the application is the have MetaMask installed as a browser extension. If you do not have it installed by want to see how it works, refer to this video I created: link.
 
-#### Why I built this
+### Why I built this
 Cryptocurrency wallets require one thing to validate a transaction, a signature initiated by the private key. 
 
 ### How It Works
@@ -15,7 +15,7 @@ Cryptocurrency wallets require one thing to validate a transaction, a signature 
 ### Sequence of Events
 - Pick which network you want (Ropsten test network or Main ethereum network)
 
-### To create a new smart contract wallet
+#### To create a new smart contract wallet
 - Navigate to the 'Create New' tab
 - Enter in the two addresses that will control the funds held in the new smart contract
 - If the inputs are valid, you will be able to create the new wallet
@@ -25,7 +25,7 @@ Cryptocurrency wallets require one thing to validate a transaction, a signature 
     - This is the smart contract address where you're funds will be sent to and held
 - Copy your new wallet address and navigate 
 
-### To interact with your existing smart contract wallet
+#### To interact with your existing smart contract wallet
 - Navigate to 'Load From Address' tab and enter in the wallet address, then click 'Get Instance' to load up the contract
 - Click 'Dislay Interface' to see the current state of the smart contract and make a withdrawl
     - You can
