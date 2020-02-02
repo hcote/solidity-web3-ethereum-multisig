@@ -1,18 +1,18 @@
-## Technologies
+### Technologies
 - React.js
 - Truffle (a framework for deploying smart contracts to the Ethereum blockchain)
 - Solidity (Ethereum's smart contract language)
 - Web3.js (javascript library facilitating connection to the Ethereum blockchain)
 
-## Quick Note
+### Quick Note
 Users can only interact with the application is the have MetaMask installed as a browser extension. If you do not have it installed by want to see how it works, refer to this video I created: link.
 
 ## Why I built this
 Cryptocurrency wallets require one thing to validate a transaction, a signature initiated by the private key. 
 
-## How It Works
+### How It Works
 
-## Sequence of Events
+### Sequence of Events
 - Pick which network you want (Ropsten test network or Main ethereum network)
 
 ### To create a new smart contract wallet
