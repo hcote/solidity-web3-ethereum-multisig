@@ -7,7 +7,7 @@
 ### Quick Note
 Users can only interact with the application is the have MetaMask installed as a browser extension. If you do not have it installed by want to see how it works, refer to this video I created: link.
 
-## Why I built this
+#### Why I built this
 Cryptocurrency wallets require one thing to validate a transaction, a signature initiated by the private key. 
 
 ### How It Works
